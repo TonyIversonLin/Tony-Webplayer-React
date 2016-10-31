@@ -1,11 +1,12 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 
-const Album = ({name, imageUrl, songs}) => {
-		let songRow = songs.map((song,index) => {
-		return <tr key={index}>
+const Album = ({album, playSong, currentSong}) => {
+		const {songs, imageUrl, name} = album;
+		const songRow = songs.map((song,index) => {
+		return <tr key={index} className={song===currentSong ? "active" : ""}>
       <td>
-        <button className="btn btn-default btn-xs">
+        <button className={song===currentSong ? "hide" :"btn btn-default btn-xs"} onClick={() => playSong(song)}>
           <span className="glyphicon glyphicon-play"></span>
         </button>
       </td>
@@ -38,8 +39,8 @@ const Album = ({name, imageUrl, songs}) => {
 }
 
 Album.propTypes = {
-	name: PropTypes.string.isRequired,
-	imageUrl: PropTypes.string.isRequired,
-	songs: PropTypes.array.isRequired,
+	album: PropTypes.object.isRequired,
+	playSong: PropTypes.func.isRequired,
+	currentSong: PropTypes.object.isRequired
 }
 export default Album;
