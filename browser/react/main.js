@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import Album from './Album';
-import {audio, playMusic, changeSong} from './Utility';
+import {audio, playMusic, changeSong, forcePosition} from './Utility';
 
 export default class Main extends Component {
 	
@@ -18,15 +18,18 @@ export default class Main extends Component {
 		this.playSong = this.playSong.bind(this);
 		this.toggleSong = this.toggleSong.bind(this);
 		this.switchSong = this.switchSong.bind(this);
+		this.scrubber = this.scrubber.bind(this);
+		this.keypress = this.keypress.bind(this);
 
 		audio.addEventListener('ended', () => {
-  		this.next(); 
+  		this.switchSong('next'); 
 		});
 		audio.addEventListener('timeupdate', () => {
   		this.setState({
     		progress: 100 * audio.currentTime / audio.duration
   		});
 		});
+		document
 	}
 
 	playSong (song) {
@@ -57,6 +60,17 @@ export default class Main extends Component {
 		});		
 	}
 
+	scrubber (e) {
+		let width = e.nativeEvent.target.scrollWidth;
+		let clickPosition = e.nativeEvent.offsetX;
+		forcePosition(width, clickPosition);
+	}
+
+	keypress (e) {
+		console.log('key board event')
+		if(e.keyCode===39) this.switchSong('next');
+		if(e.keyCode===37) this.switchSong('previous');
+	}
 
 	componentDidMount() {
 		const toJson = response => response.json();
@@ -79,13 +93,16 @@ export default class Main extends Component {
 					album={this.state.album}
 					playSong={this.playSong}
 					currentSong={this.state.currentSong}
+					keypress = {this.keypress}
 					/>
-				<Footer 
+				<Footer
 					playStatus={this.state.playStatus}
 					toggleSong={this.toggleSong}
 					currentSong={this.state.currentSong}
 					switchSong = {this.switchSong}
 					progress={this.state.progress}
+					scrubber={this.scrubber}
+					keypress={this.keypress}
 				/>
 			</div>
 		)
