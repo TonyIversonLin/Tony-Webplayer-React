@@ -3,8 +3,7 @@ import React, {Component} from 'react';
 import Footer from './Footer';
 import Sidebar from './Sidebar';
 import Album from './Album';
-
-const audio = document.createElement('audio');
+import {audio, playMusic, changeSong} from './Utility';
 
 export default class Main extends Component {
 	
@@ -18,8 +17,8 @@ export default class Main extends Component {
 		}
 		this.playSong = this.playSong.bind(this);
 		this.toggleSong = this.toggleSong.bind(this);
-		this.next = this.next.bind(this);
-		this.previous = this.previous.bind(this);
+		this.switchSong = this.switchSong.bind(this);
+
 		audio.addEventListener('ended', () => {
   		this.next(); 
 		});
@@ -32,16 +31,9 @@ export default class Main extends Component {
 
 	playSong (song) {
 		if(this.state.currentSong === song) {
-			if(this.state.playStatus === true) {
-				audio.pause();this.setState({playStatus: false});
-			}else {
-				audio.play(); this.setState({playStatus: true});
-			}
+			this.toggleSong ();
 		}else{
-			audio.pause();
-			audio.src = song.url;
-			audio.load();
-			audio.play();
+			playMusic(song.url);
 			this.setState({
 				currentSong: song,
 				playStatus: true
@@ -57,38 +49,12 @@ export default class Main extends Component {
 		}
 	}
 
-	next () {
-		let songs = this.state.album.songs;
-		let currentSong = this.state.currentSong
-		let currentIndex = songs.indexOf(currentSong)
-		let max = songs.length;
-		if(currentIndex<max-1) currentIndex++;
-		else currentIndex = 0;
-		audio.pause();
-		audio.src = songs[currentIndex].url;
-		audio.load();
-		audio.play();
+	switchSong (type) {
+		let nextSong = changeSong(type, this.state.album.songs, this.state.currentSong);
 		this.setState({
-				currentSong: songs[currentIndex],
+				currentSong: nextSong,
 				playStatus: true
-		});
-	}
-
-	previous () {
-		let songs = this.state.album.songs;
-		let currentSong = this.state.currentSong
-		let currentIndex = songs.indexOf(currentSong)
-		let max = songs.length;
-		if(currentIndex>0) currentIndex--;
-		else currentIndex = songs.length-1;
-		audio.pause();
-		audio.src = songs[currentIndex].url;
-		audio.load();
-		audio.play();
-		this.setState({
-				currentSong: songs[currentIndex],
-				playStatus: true
-		});
+		});		
 	}
 
 
@@ -118,8 +84,7 @@ export default class Main extends Component {
 					playStatus={this.state.playStatus}
 					toggleSong={this.toggleSong}
 					currentSong={this.state.currentSong}
-					next={this.next}
-					previous={this.previous}
+					switchSong = {this.switchSong}
 					progress={this.state.progress}
 				/>
 			</div>

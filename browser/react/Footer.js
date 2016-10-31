@@ -1,18 +1,18 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 
-const Footer = ({currentSong, playStatus, toggleSong, next, previous, progress}) => {
+const Footer = ({currentSong, playStatus, toggleSong, next, previous, progress, switchSong}) => {
 	return (
 		 <footer className={Object.keys(currentSong).length === 0 ? 'hide' : ''}>
       <div>
         <div className="pull-left">
-          <button className="btn btn-default" onClick={previous}>
+          <button className="btn btn-default" onClick={()=>{switchSong('previous')}}>
             <span className="glyphicon glyphicon-step-backward"></span>
           </button>
           <button className="btn btn-default" onClick={toggleSong}>
             <span className={playStatus ? "glyphicon glyphicon-pause" : "glyphicon glyphicon-play"}></span>
           </button>
-          <button className="btn btn-default" onClick={next}>
+          <button className="btn btn-default" onClick={()=>{switchSong('next')}}>
             <span className="glyphicon glyphicon-step-forward"></span>
           </button>
         </div>
@@ -29,8 +29,7 @@ const Footer = ({currentSong, playStatus, toggleSong, next, previous, progress})
 Footer.propTypes = {
   playStatus: PropTypes.bool.isRequired,
   toggleSong: PropTypes.func.isRequired,
-  next: PropTypes.func.isRequired,
-  previous: PropTypes.func.isRequired,
+  switchSong: PropTypes.func.isRequired,
   currentSong: PropTypes.object.isRequired
 }
 export default Footer;
