@@ -1,0 +1,3 @@
+'use strict';
+
+export const RECEIVE_ALBUMS_FROM_SERVER = 'RECEIVE_ALBUMS_FROM_SERVER';

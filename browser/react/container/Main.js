@@ -1,15 +1,16 @@
 'use strict';
 import React, {Component} from 'react';
-import Footer from './Footer';
-import Sidebar from './Sidebar';
-import Album from './Album';
-import {audio, playMusic, changeSong, forcePosition} from './Utility';
+import Footer from '../component/Footer';
+import Sidebar from '../component/Sidebar';
+import Album from '../component/Album';
+import {audio, playMusic, changeSong, forcePosition} from '../Utility';
 
 export default class Main extends Component {
 	
 	constructor(props) {
 		super(props);
 		this.state = {
+			albums: [],
 			album: {imageUrl: '', name: '', songs: []},
 			currentSong: {},
 			playStatus: false,
@@ -67,7 +68,6 @@ export default class Main extends Component {
 	}
 
 	keypress (e) {
-		console.log('key board event')
 		if(e.keyCode===39) this.switchSong('next');
 		if(e.keyCode===37) this.switchSong('previous');
 	}
@@ -93,7 +93,6 @@ export default class Main extends Component {
 					album={this.state.album}
 					playSong={this.playSong}
 					currentSong={this.state.currentSong}
-					keypress = {this.keypress}
 					/>
 				<Footer
 					playStatus={this.state.playStatus}
