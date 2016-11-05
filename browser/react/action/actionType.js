@@ -1,3 +1,7 @@
 'use strict';
 
 export const RECEIVE_ALBUMS_FROM_SERVER = 'RECEIVE_ALBUMS_FROM_SERVER';
+
+export const START_PLAYING = 'START_PLAYING';
+export const STOP_PLAYING = 'STOP_PLAYING';
+export const SET_CURRENT_SONG = 'SET_CURRENT_SONG';

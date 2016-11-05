@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 
 import Albums from '../component/Albums';
-import {receiveAlbums} from '../action/albumActions'
+import {fetchAlbumsFromServer} from '../action/albumActions'
 
 class AlbumsContainer extends Component {
 	
@@ -12,15 +12,7 @@ class AlbumsContainer extends Component {
 	}
 
 	componentDidMount() {
-		fetch('api/albums')
-			.then(res => res.json())
-			.then(albumsFromServer => {
-				let albumsList = albumsFromServer.map(album => {
-					album.imageUrl = `/api/albums/${album.id}/image`;
-					return album;
-				})
-				this.props.loadAlbums(albumsList);
-			}).catch(error => console.log(error));
+		this.props.loadAlbums();
 	}	
 
 	render () {
@@ -36,8 +28,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		loadAlbums: function (albums) {
-			dispatch(receiveAlbums(albums)); 
+		loadAlbums: function () {
+			dispatch(fetchAlbumsFromServer()); 
 		}
 	}
 }

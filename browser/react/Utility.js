@@ -1,6 +1,6 @@
 'use strict';
 
-export const audio = document.createElement('audio');
+export const AUDIO = document.createElement('audio');
 
 export function playMusic(songUrl) {
 	audio.pause();

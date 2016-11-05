@@ -1,11 +1,14 @@
 'use strict';
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import Footer from '../component/Footer';
 import Sidebar from '../component/Sidebar';
 import Album from '../component/Album';
-import {audio, playMusic, changeSong, forcePosition} from '../Utility';
+import {AUDIO, playMusic, changeSong, forcePosition} from '../Utility';
+import { toggle, toggleOne } from '../action/albumActions'
 
-export default class Main extends Component {
+class Main extends Component {
 	
 	constructor(props) {
 		super(props);
@@ -30,7 +33,6 @@ export default class Main extends Component {
     		progress: 100 * audio.currentTime / audio.duration
   		});
 		});
-		document
 	}
 
 	playSong (song) {
@@ -107,3 +109,22 @@ export default class Main extends Component {
 		)
 	}
 }
+
+const mapStateToProps = (state, ownProps) => {
+	let {albums, currentSong, currentSongList, isPlaying} = state
+	return {
+		albums,
+		currentSong,
+		currentSongList,
+		isPlaying
+	}
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		toggle: () => dispatch(toggle()),
+		toggleOne: (song, songList) => dispatch(toggleOne(song, songList)) 
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
