@@ -1,18 +1,18 @@
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+
+import configureStore from './store/configureStore';
 import Main from './container/Main';
-import { createStore } from 'redux';
-import {albums} from './reducer/albums';
+import AlbumsContainer from './container/AlbumsContainer';
 
-let store = createStore(albums);
-
-store.getState() // { albums: [] }
-store.dispatch({ type: 'RECEIVE_ALBUMS_FROM_SERVER', albums: [{artist: 'jav', songs: []}/* some albums */] })
-console.log(store.getState()) // { albums: [ /* some albums */ ] }
+let store = configureStore();
 
 ReactDOM.render(
-	<Main />,
+	<Provider store={store}>
+		<AlbumsContainer />
+	</Provider>,
 	document.getElementById('app')
 )
 
