@@ -14,53 +14,19 @@ class Main extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			album: {imageUrl: '', name: '', songs: []},
-			currentSong: {},
-			playStatus: false,
 			progress: 0
 		}
-		// this.playSong = this.playSong.bind(this);
-		// this.toggleSong = this.toggleSong.bind(this);
-		this.switchSong = this.switchSong.bind(this);
 		this.scrubber = this.scrubber.bind(this);
 		this.keypress = this.keypress.bind(this);
 
 		AUDIO.addEventListener('ended', () => {
-  		this.switchSong('next'); 
+  		this.props.switchSong('next'); 
 		});
 		AUDIO.addEventListener('timeupdate', () => {
   		this.setState({
     		progress: 100 * AUDIO.currentTime / AUDIO.duration
   		});
 		});
-	}
-
-	// playSong (song) {
-	// 	if(this.state.currentSong === song) {
-	// 		this.toggleSong ();
-	// 	}else{
-	// 		playMusic(song.url);
-	// 		this.setState({
-	// 			currentSong: song,
-	// 			playStatus: true
-	// 		})
-	// 	}
-	// }
-
-	toggleSong () {
-		if(this.state.playStatus) {
-			AUDIO.pause(); this.setState({playStatus: false}); 
-		}else {
-			AUDIO.play(); this.setState({playStatus: true});
-		}
-	}
-
-	switchSong (type) {
-		let nextSong = changeSong(type, this.state.album.songs, this.state.currentSong);
-		this.setState({
-				currentSong: nextSong,
-				playStatus: true
-		});		
 	}
 
 	scrubber (e) {
@@ -70,21 +36,8 @@ class Main extends Component {
 	}
 
 	keypress (e) {
-		if(e.keyCode===39) this.switchSong('next');
-		if(e.keyCode===37) this.switchSong('previous');
-	}
-
-	componentDidMount() {
-		const toJson = response => response.json();
-		const log = console.log.bind(console);
-		const logError = console.error.bind(console);
-		fetch('api/albums/1')
-			.then(res => {
-				return res.json();
-			}).then(albumFromServer => {
-				albumFromServer.imageUrl = `/api/albums/${albumFromServer.id}/image`
-				this.setState({album: albumFromServer})
-			})
+		if(e.keyCode===39) this.props.switchSong('next');
+		if(e.keyCode===37) this.props.switchSong('previous');
 	}
 
 	render () {

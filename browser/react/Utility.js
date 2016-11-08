@@ -27,5 +27,5 @@ export function changeSong(type, songs, currentSong) {
 
 export function forcePosition(length,pos) {
 	let ratio = pos/length;
-	audio.currentTime = audio.duration * ratio;
+	AUDIO.currentTime = AUDIO.duration * ratio;
 }
