@@ -1,6 +1,8 @@
 'use strict';
 
 const initialState = {
+	artists: [{name: ''}],
+  currentArtist: {},
 	albums: [{
 		id: 0,
 		name: '',
