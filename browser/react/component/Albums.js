@@ -1,9 +1,9 @@
 'use strict';
 import React, {Component, PropTypes} from 'react'; 
 
-const Albums = ({albums, loadAlbums}) => {
+const Albums = ({albums, fetchSingleAlbum}) => {
 	const albumList = albums.map((album, index) => {
-		return <div className="col-xs-4" key={album.id}>
+		return <div className="col-xs-4" key={album.id} onClick={() => fetchSingleAlbum(album.id)}>
       <a className="thumbnail" href="#">
         <img src={album.imageUrl} />
         <div className="caption">
@@ -31,7 +31,8 @@ Albums.propTypes = {
 		id: PropTypes.number.isRequired,
 		name: PropTypes.string.isRequired,
 		songs: PropTypes.array.isRequired
-	}).isRequired).isRequired
+	}).isRequired).isRequired,
+	fetchSingleAlbum: PropTypes.func.isRequired
 }
 
 export default Albums;

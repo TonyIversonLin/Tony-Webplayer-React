@@ -26,3 +26,10 @@ export function isPlaying(state = false, action) {
 		default: return state;
 	}
 }
+
+export function currentAlbum(state = {}, action) {
+	switch(action.type) {
+		case types.SET_CURRENT_ALBUM: return action.currentAlbum
+		default: return state
+	}
+}

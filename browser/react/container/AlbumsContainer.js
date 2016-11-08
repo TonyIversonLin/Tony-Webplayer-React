@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 
 import Albums from '../component/Albums';
-import {fetchAlbumsFromServer} from '../action/albumActions'
+import {fetchAlbumsFromServer, fetchSingleAlbum} from '../action/albumActions'
 
 class AlbumsContainer extends Component {
 	
@@ -16,7 +16,9 @@ class AlbumsContainer extends Component {
 	}	
 
 	render () {
-		return <Albums albums={this.props.albums} />
+		return <Albums 
+						albums={this.props.albums} 
+						fetchSingleAlbum={this.props.fetchSingleAlbum} />
 	}
 }
 
@@ -28,9 +30,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
-		loadAlbums: function () {
-			dispatch(fetchAlbumsFromServer()); 
-		}
+		loadAlbums: () => dispatch(fetchAlbumsFromServer()),
+		fetchSingleAlbum: (album) => dispatch(fetchSingleAlbum(album))
 	}
 }
 

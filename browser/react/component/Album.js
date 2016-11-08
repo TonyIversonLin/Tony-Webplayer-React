@@ -6,7 +6,7 @@ const Album = ({album, playSong, currentSong}) => {
 		const songRow = songs.map((song,index) => {
 		return <tr key={index} className={song===currentSong ? "active" : ""}>
       <td>
-        <button className={song===currentSong ? "hide" :"btn btn-default btn-xs"} onClick={() => playSong(song)}>
+        <button className={song===currentSong ? "hide" :"btn btn-default btn-xs"} onClick={() => playSong(song, songs)}>
           <span className="glyphicon glyphicon-play"></span>
         </button>
       </td>
@@ -16,8 +16,8 @@ const Album = ({album, playSong, currentSong}) => {
 		</tr>
 		})
 	return (
-		<div className="album col-xs-10">
-		  <div>
+		<div>
+		  <div className="col-xs-7">
 		    <h3>{name}</h3>
 		    <img src={imageUrl} className="img-thumbnail" />
 		  </div>

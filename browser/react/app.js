@@ -11,7 +11,7 @@ let store = configureStore();
 
 ReactDOM.render(
 	<Provider store={store}>
-		<AlbumsContainer />
+		<Main />
 	</Provider>,
 	document.getElementById('app')
 )

@@ -21,7 +21,7 @@ export function changeSong(type, songs, currentSong) {
 		else currentIndex = songs.length-1;
 	}
 	let newSong = songs[currentIndex];
-	playMusic(newSong.url);
+	//playMusic(newSong.url);
 	return newSong;
 }
 

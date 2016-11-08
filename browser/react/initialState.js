@@ -6,7 +6,7 @@ const initialState = {
 		name: '',
 		songs: []
 	}],
-  album: {},
+  currentAlbum: {},
   currentSong: {},
   currentSongList: [],
   isPlaying: false,

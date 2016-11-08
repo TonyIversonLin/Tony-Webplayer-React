@@ -46,22 +46,22 @@ export function setCurrentSong (currentSong, currentSongList) {
 
 export function play() {
 	return dispatch => {
-		audio.play();
+		AUDIO.play();
 		dispatch(startPlaying());
 	}
 }
 
 export function pause() {
 	return dispatch => {
-		audio.pause();
+		AUDIO.pause();
 		dispatch(stopPlaying());
 	}
 }
 
 export function load(currentSong, currentSongList) {
 	return dispatch => {
-		audio.src = currentSong.audioUrl;
-		audio.load();
+		AUDIO.src = currentSong.url;
+		AUDIO.load();
 		dispatch(setCurrentSong(currentSong, currentSongList));
 	}
 }
@@ -76,9 +76,9 @@ export function startSong(song, list) {
 
 export function toggle() {
 	return (dispatch, getState) => {
-		const { playingStatus } = getState();
-		if(playingStatus) dispatch(pause);
-		else dispatch(play);
+		const { isPlaying } = getState();
+		if(isPlaying) dispatch(pause());
+		else dispatch(play());
 	}
 }
 
@@ -88,5 +88,31 @@ export function toggleOne(selectedSong, selectedSongList) {
 		if( currentSong.id !== selectedSong.id)
 			dispatch(startSong(selectedSong, selectedSongList));
 		else dispatch(toggle());  
+	}
+}
+
+export function switchSong(type) {
+	return (dispatch, getState) => {
+		let { currentSong, currentSongList} = getState();
+		let nextSong = changeSong(type, currentSongList, currentSong);
+		dispatch(startSong(nextSong, currentSongList));
+	}
+}
+
+export function setCurrentAlbum(currentAlbum) {
+	return {
+		type: types.SET_CURRENT_ALBUM,
+		currentAlbum
+	}
+}
+
+export function fetchSingleAlbum(albumId) {
+	return function (dispatch) {
+		fetch('api/albums/'+albumId)
+			.then(res => res.json())
+			.then(albumFromServer => {
+				albumFromServer.imageUrl = `/api/albums/${albumFromServer.id}/image`;
+				dispatch(setCurrentAlbum(albumFromServer));
+			})
 	}
 }

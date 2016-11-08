@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 
-const Footer = ({currentSong, playStatus, toggleSong, progress, switchSong, scrubber, keypress}) => {
+const Footer = ({currentSong, playStatus, toggle, progress, switchSong, scrubber, keypress}) => {
 	return (
 		 <footer className={Object.keys(currentSong).length === 0 ? 'hide' : ''}>
       <div>
@@ -9,7 +9,7 @@ const Footer = ({currentSong, playStatus, toggleSong, progress, switchSong, scru
           <button className="btn btn-default" onClick={()=>{switchSong('previous')}}>
             <span className="glyphicon glyphicon-step-backward"></span>
           </button>
-          <button className="btn btn-default" onClick={toggleSong}>
+          <button className="btn btn-default" onClick={toggle}>
             <span className={playStatus ? "glyphicon glyphicon-pause" : "glyphicon glyphicon-play"}></span>
           </button>
           <button className="btn btn-default" onClick={()=>{switchSong('next')}}>
@@ -28,7 +28,7 @@ const Footer = ({currentSong, playStatus, toggleSong, progress, switchSong, scru
 
 Footer.propTypes = {
   playStatus: PropTypes.bool.isRequired,
-  toggleSong: PropTypes.func.isRequired,
+  toggle: PropTypes.func.isRequired,
   switchSong: PropTypes.func.isRequired,
   currentSong: PropTypes.object.isRequired,
   scrubber: PropTypes.func.isRequired

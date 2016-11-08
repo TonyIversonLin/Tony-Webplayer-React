@@ -5,53 +5,53 @@ import {connect} from 'react-redux';
 import Footer from '../component/Footer';
 import Sidebar from '../component/Sidebar';
 import Album from '../component/Album';
+import AlbumsContainer from './AlbumsContainer';
 import {AUDIO, playMusic, changeSong, forcePosition} from '../Utility';
-import { toggle, toggleOne } from '../action/albumActions'
+import { toggle, toggleOne, switchSong } from '../action/albumActions'
 
 class Main extends Component {
 	
 	constructor(props) {
 		super(props);
 		this.state = {
-			albums: [],
 			album: {imageUrl: '', name: '', songs: []},
 			currentSong: {},
 			playStatus: false,
 			progress: 0
 		}
-		this.playSong = this.playSong.bind(this);
-		this.toggleSong = this.toggleSong.bind(this);
+		// this.playSong = this.playSong.bind(this);
+		// this.toggleSong = this.toggleSong.bind(this);
 		this.switchSong = this.switchSong.bind(this);
 		this.scrubber = this.scrubber.bind(this);
 		this.keypress = this.keypress.bind(this);
 
-		audio.addEventListener('ended', () => {
+		AUDIO.addEventListener('ended', () => {
   		this.switchSong('next'); 
 		});
-		audio.addEventListener('timeupdate', () => {
+		AUDIO.addEventListener('timeupdate', () => {
   		this.setState({
-    		progress: 100 * audio.currentTime / audio.duration
+    		progress: 100 * AUDIO.currentTime / AUDIO.duration
   		});
 		});
 	}
 
-	playSong (song) {
-		if(this.state.currentSong === song) {
-			this.toggleSong ();
-		}else{
-			playMusic(song.url);
-			this.setState({
-				currentSong: song,
-				playStatus: true
-			})
-		}
-	}
+	// playSong (song) {
+	// 	if(this.state.currentSong === song) {
+	// 		this.toggleSong ();
+	// 	}else{
+	// 		playMusic(song.url);
+	// 		this.setState({
+	// 			currentSong: song,
+	// 			playStatus: true
+	// 		})
+	// 	}
+	// }
 
 	toggleSong () {
 		if(this.state.playStatus) {
-			audio.pause(); this.setState({playStatus: false}); 
+			AUDIO.pause(); this.setState({playStatus: false}); 
 		}else {
-			audio.play(); this.setState({playStatus: true});
+			AUDIO.play(); this.setState({playStatus: true});
 		}
 	}
 
@@ -88,19 +88,29 @@ class Main extends Component {
 	}
 
 	render () {
+		let album;
+		if(this.props.currentAlbum.id) {
+			album = <Album 
+					album={this.props.currentAlbum}
+					playSong={this.props.toggleOne}
+					currentSong={this.props.currentSong}
+					/>
+		}
+
 		return (
 			<div id="main" className="container-fluid">
+			<div className="col-xs-2">
 				<Sidebar />
-				<Album 
-					album={this.state.album}
-					playSong={this.playSong}
-					currentSong={this.state.currentSong}
-					/>
+			</div>
+			<div className="col-xs-10">
+				<AlbumsContainer/>
+				{album}
+			</div>
 				<Footer
-					playStatus={this.state.playStatus}
-					toggleSong={this.toggleSong}
-					currentSong={this.state.currentSong}
-					switchSong = {this.switchSong}
+					playStatus={this.props.isPlaying}
+					toggle={this.props.toggle}
+					currentSong={this.props.currentSong}
+					switchSong = {this.props.switchSong}
 					progress={this.state.progress}
 					scrubber={this.scrubber}
 					keypress={this.keypress}
@@ -111,9 +121,9 @@ class Main extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	let {albums, currentSong, currentSongList, isPlaying} = state
+	let { currentAlbum, currentSong, currentSongList, isPlaying} = state
 	return {
-		albums,
+		currentAlbum,
 		currentSong,
 		currentSongList,
 		isPlaying
@@ -123,7 +133,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 	return {
 		toggle: () => dispatch(toggle()),
-		toggleOne: (song, songList) => dispatch(toggleOne(song, songList)) 
+		toggleOne: (song, songList) => dispatch(toggleOne(song, songList)),
+		switchSong: (type) => dispatch(switchSong(type))
 	}
 }
 
