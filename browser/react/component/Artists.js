@@ -12,8 +12,8 @@ const Artists = ({ artists, goToArtist }) => {
 		          <div className="list-group-item" key={artist.id}>
 		            <a href="#" onClick={goToArtist}>{ artist.name }</a>   
 		          </div>
-		        );    
-		      });
+		        )    
+		      })
 		    }
 		  </div>
 		</div>		
@@ -24,4 +24,4 @@ Artists.propTypes = {
 	artists: PropTypes.object.isRequired
 }
 
-export default Artists 
+export default Artists; 

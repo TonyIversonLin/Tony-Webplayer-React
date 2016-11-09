@@ -56,7 +56,7 @@ class Main extends Component {
 				<Sidebar />
 			</div>
 			<div className="col-xs-10">
-				<AlbumsContainer/>
+				{this.props.children}
 				{album}
 			</div>
 				<Footer

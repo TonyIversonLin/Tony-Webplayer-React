@@ -107,11 +107,13 @@ export function setCurrentAlbum(currentAlbum) {
 }
 
 export function fetchSingleAlbum(albumId) {
-	return function (dispatch) {
+	return dispatch => {
+		//console.log('I am here', dispatch)
 		fetch('api/albums/'+albumId)
 			.then(res => res.json())
 			.then(albumFromServer => {
 				albumFromServer.imageUrl = `/api/albums/${albumFromServer.id}/image`;
+				//console.log('about to set current album');
 				dispatch(setCurrentAlbum(albumFromServer));
 			})
 	}

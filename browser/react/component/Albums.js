@@ -1,5 +1,6 @@
 'use strict';
 import React, {Component, PropTypes} from 'react'; 
+import { Link } from 'react-router';
 
 const Albums = ({albums, fetchSingleAlbum}) => {
 	const albumList = albums.map((album, index) => {
