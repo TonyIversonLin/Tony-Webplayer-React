@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react'; 
 import { Link } from 'react-router';
 
-const Albums = ({albums, fetchSingleAlbum}) => {
+const Albums = ({albums}) => {
 	const albumList = albums.map((album, index) => {
 		return <div className="col-xs-4" key={album.id}>
       <Link className="thumbnail" to={'/albums/'+album.id}>
@@ -17,8 +17,6 @@ const Albums = ({albums, fetchSingleAlbum}) => {
     </div>		
 	});
 
-      //<Link className="thumbnail" to={'/albums/'+album.id}>
-      //onClick={() => fetchSingleAlbum(album.id)}
 	return (
 		<div>
 		  <h3>Albums</h3>
@@ -34,8 +32,7 @@ Albums.propTypes = {
 		id: PropTypes.number.isRequired,
 		name: PropTypes.string.isRequired,
 		songs: PropTypes.array.isRequired
-	}).isRequired).isRequired,
-	fetchSingleAlbum: PropTypes.func.isRequired
+	}).isRequired).isRequired
 }
 
 export default Albums;

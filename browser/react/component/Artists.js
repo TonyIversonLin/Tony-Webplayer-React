@@ -1,16 +1,17 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
-const Artists = ({ artists, goToArtist }) => {
+const Artists = ({ artists }) => {
 	return (
 		<div>
 		  <h3>Artists</h3>
 		    <div className="list-group">
 		    {
-		      this.artists.map(artist => {
+		      artists.map(artist => {
 		        return (
 		          <div className="list-group-item" key={artist.id}>
-		            <a href="#" onClick={goToArtist}>{ artist.name }</a>   
+		            <Link to={"/Artists/"+artist.id}>{ artist.name }</Link>   
 		          </div>
 		        )    
 		      })
@@ -21,7 +22,7 @@ const Artists = ({ artists, goToArtist }) => {
 }
 
 Artists.propTypes = {
-	artists: PropTypes.object.isRequired
+	artists: PropTypes.array.isRequired
 }
 
 export default Artists; 

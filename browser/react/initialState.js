@@ -2,7 +2,7 @@
 
 const initialState = {
 	artists: [{name: ''}],
-  currentArtist: {},
+  currentArtist: {artist: {name: ''}, albums: [], songs: []},
 	albums: [{
 		id: 0,
 		name: '',

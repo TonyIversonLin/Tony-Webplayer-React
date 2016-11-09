@@ -30,8 +30,10 @@ export function fetchSingleArtist(artistID) {
 		let fetchingAlbums = fetch('/api/artists/'+artistID+'/albums');
 		let fetchingSongs = fetch('/api/artists/'+artistID+'/songs');
 		Promise.all([fetchingArtist,fetchingAlbums,fetchingSongs])
-			.then(results => results.map(result => result.json())
+			.then(results => results.map(result => result.json()))
+			.then(cleanJSON => Promise.all(cleanJSON))
 			.then(cleanResults => {
+				console.log('getting single artist', cleanResults)
 				let artist = cleanResults[0];
 				let albums = cleanResults[1].map(album => {
 					album.imageUrl = `/api/albums/${album.id}/image`;
@@ -42,7 +44,7 @@ export function fetchSingleArtist(artistID) {
 					artist,
 					albums,
 					songs
-				}))
+				}));
 			})
 	}
 }

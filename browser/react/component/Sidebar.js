@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 
-const Sidebar = ({ viewAllAlbums, viewAllArtists}) => {
+const Sidebar = () => {
 	return (
     <div className="col-xs-2">
       <sidebar>
@@ -18,11 +18,6 @@ const Sidebar = ({ viewAllAlbums, viewAllArtists}) => {
       </sidebar>
     </div>
 	)
-}
-
-Sidebar.propTypes = {
-  viewAllArtists: PropTypes.func.isRequired,
-  viewAllAlbums: PropTypes.func.isRequired
 }
 
 export default Sidebar;
