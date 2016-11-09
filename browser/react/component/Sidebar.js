@@ -9,10 +9,10 @@ const Sidebar = () => {
         <img src="juke.svg" className="logo" />
         <section>
           <h4 className="menu-item active">
-            <Link to="/Albums">ALBUMS</Link>
+            <Link to="/Albums" activeStyle={{ color: 'Aqua' }}>ALBUMS</Link>
           </h4>
           <h5 className="playlist-item">
-             <Link to="/Artists">ARTISTS</Link>
+             <Link to="/Artists" activeStyle={{ color: 'Aqua' }}>ARTISTS</Link>
           </h5>
         </section>
       </sidebar>

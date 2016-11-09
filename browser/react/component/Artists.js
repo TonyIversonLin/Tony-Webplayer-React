@@ -10,7 +10,7 @@ const Artists = ({ artists }) => {
 		    {
 		      artists.map(artist => {
 		        return (
-		          <div className="list-group-item" key={artist.id}>
+		          <div className="list-group-item" key={artist.name}>
 		            <Link to={"/Artists/"+artist.id}>{ artist.name }</Link>   
 		          </div>
 		        )    

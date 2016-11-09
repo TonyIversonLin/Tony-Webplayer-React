@@ -41,15 +41,6 @@ class Main extends Component {
 	}
 
 	render () {
-		let album;
-		if(this.props.currentAlbum.id) {
-			album = <Album 
-					album={this.props.currentAlbum}
-					playSong={this.props.toggleOne}
-					currentSong={this.props.currentSong}
-					/>
-		}
-
 		return (
 			<div id="main" className="container-fluid">
 			<div className="col-xs-2">
@@ -73,11 +64,10 @@ class Main extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-	let { currentAlbum, currentSong, currentSongList, isPlaying} = state
+	let { currentAlbum, currentSong, isPlaying} = state
 	return {
 		currentAlbum,
 		currentSong,
-		currentSongList,
 		isPlaying
 	}
 }
