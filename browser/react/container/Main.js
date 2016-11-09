@@ -57,7 +57,6 @@ class Main extends Component {
 			</div>
 			<div className="col-xs-10">
 				{this.props.children}
-				{album}
 			</div>
 				<Footer
 					playStatus={this.props.isPlaying}

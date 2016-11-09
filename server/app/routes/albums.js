@@ -29,7 +29,7 @@ router.param('albumId', function (req, res, next, id) {
 });
 
 router.get('/:albumId', function (req, res) {
-  res.json(req.album);
+  res.send(req.album);
 });
 
 router.get('/:albumId/image', function (req, res, next) {

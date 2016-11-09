@@ -8,7 +8,7 @@ const initialState = {
 		name: '',
 		songs: []
 	}],
-  currentAlbum: {},
+  currentAlbum: {songs: []},
   currentSong: {},
   currentSongList: [],
   isPlaying: false,

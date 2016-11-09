@@ -4,8 +4,8 @@ import { Link } from 'react-router';
 
 const Albums = ({albums, fetchSingleAlbum}) => {
 	const albumList = albums.map((album, index) => {
-		return <div className="col-xs-4" key={album.id} onClick={() => fetchSingleAlbum(album.id)}>
-      <a className="thumbnail" href="#">
+		return <div className="col-xs-4" key={album.id}>
+      <Link className="thumbnail" to={'/albums/'+album.id}>
         <img src={album.imageUrl} />
         <div className="caption">
           <h5>
@@ -13,10 +13,12 @@ const Albums = ({albums, fetchSingleAlbum}) => {
           </h5>
           <small>{album.songs.length}</small>
         </div>
-      </a>
+      </Link>
     </div>		
 	});
 
+      //<Link className="thumbnail" to={'/albums/'+album.id}>
+      //onClick={() => fetchSingleAlbum(album.id)}
 	return (
 		<div>
 		  <h3>Albums</h3>

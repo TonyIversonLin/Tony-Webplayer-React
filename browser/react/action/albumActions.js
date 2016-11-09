@@ -109,7 +109,7 @@ export function setCurrentAlbum(currentAlbum) {
 export function fetchSingleAlbum(albumId) {
 	return dispatch => {
 		//console.log('I am here', dispatch)
-		fetch('api/albums/'+albumId)
+		fetch('/api/albums/'+albumId)
 			.then(res => res.json())
 			.then(albumFromServer => {
 				albumFromServer.imageUrl = `/api/albums/${albumFromServer.id}/image`;

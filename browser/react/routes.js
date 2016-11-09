@@ -12,9 +12,9 @@ export default (store) => {
 	return (
 		<Route path='/' component={Main}>
 			<Route path='Albums' component={AlbumsContainer} />
-			<Route path='Albums/:id' component={AlbumContainer} onEnter={preLoadSingleAlbum(store)}/>
+			<Route path='Albums/(:id)' component={AlbumContainer} onEnter={preLoadSingleAlbum(store)}/>
 			<Route path='Artists' component={ArtistsContainer} />
-			<Route path='Artists/:id' component={ArtistContainer} />
+			<Route path='Artists/(:id)' component={ArtistContainer} />
 		</Route>
 	)
 }
@@ -22,7 +22,6 @@ export default (store) => {
 function preLoadSingleAlbum(store) {
 	return nextState => {
 		let albumID = nextState.params.id;
-		console.log('store.............',store)
 		store.dispatch(fetchSingleAlbum(albumID));
 	}
 }
