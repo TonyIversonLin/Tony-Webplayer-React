@@ -9,7 +9,6 @@ const Artist = ({artist, albums, currentSong, playSong, children}) => {
 	albums.forEach(album => songs = songs.concat(album.songs));
 	let childrenWithProps;
 	if(children) {
-		console.log('..........', children.type.name)
 		if(children.type.name==="Albums"){
 			childrenWithProps = React.cloneElement(children, {albums});
 		}else childrenWithProps= React.cloneElement(children, {currentSong, playSong, songs});
