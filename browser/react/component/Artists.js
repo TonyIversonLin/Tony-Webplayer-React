@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 const Artists = ({ artists }) => {
 	return (
 		<div>
-		  <h3>Artists</h3>
 		    <div className="list-group">
 		    {
 		      artists.map(artist => {

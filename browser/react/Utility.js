@@ -29,3 +29,10 @@ export function forcePosition(length,pos) {
 	let ratio = pos/length;
 	AUDIO.currentTime = AUDIO.duration * ratio;
 }
+
+export function nameCheck(str, artists) {
+	let result = artists.filter(artist => {
+		return str.split('').every((letter,i) => str[i]=== artist.name[i])
+	});
+	return result;
+}
