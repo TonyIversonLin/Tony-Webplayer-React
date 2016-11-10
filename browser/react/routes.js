@@ -5,6 +5,8 @@ import AlbumContainer from './container/AlbumContainer';
 import ArtistsContainer from './container/ArtistsContainer';
 import ArtistContainer from './container/ArtistContainer';
 import Main from './container/Main';
+import Albums from './component/Albums';
+import SongTable from './component/SongTable';
 
 import {fetchAlbumsFromServer, fetchSingleAlbum} from './action/albumActions';
 import {fetchArtists, fetchSingleArtist} from './action/artistActions'
@@ -12,10 +14,14 @@ import {fetchArtists, fetchSingleArtist} from './action/artistActions'
 export default (store) => {
 	return (
 		<Route path='/' component={Main}>
+			<IndexRoute component={AlbumsContainer} onEnter={preLoadAllAlbum(store)}/>
 			<Route path='Albums' component={AlbumsContainer} onEnter={preLoadAllAlbum(store)}/>
 			<Route path='Albums/(:id)' component={AlbumContainer} onEnter={preLoadSingleAlbum(store)}/>
 			<Route path='Artists' component={ArtistsContainer} onEnter={preLoadAllArtists(store)}/>
-			<Route path='Artists/(:id)' component={ArtistContainer} onEnter={preLoadSingleArtist(store)}/>
+			<Route path='Artists/(:id)' component={ArtistContainer} onEnter={preLoadSingleArtist(store)}>
+				<Route path='albums' component={Albums}/>
+				<Route path='songs' component={SongTable}/>
+			</Route>
 		</Route>
 	)
 }

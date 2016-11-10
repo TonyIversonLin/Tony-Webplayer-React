@@ -1,16 +1,27 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
+import { Link } from 'react-router';
 import Albums from './Albums';
 import SongTable from './SongTable';
 
-const Artist = ({artist, albums, currentSong, playSong}) => {
+const Artist = ({artist, albums, currentSong, playSong, children}) => {
 	let songs = [];
-	albums.forEach(album => songs = songs.concat(album.songs))
+	albums.forEach(album => songs = songs.concat(album.songs));
+	let childrenWithProps;
+	if(children) {
+		console.log('..........', children.type.name)
+		if(children.type.name==="Albums"){
+			childrenWithProps = React.cloneElement(children, {albums});
+		}else childrenWithProps= React.cloneElement(children, {currentSong, playSong, songs});
+	}
 	return (
 		<div>
 			<h3>{artist.name}</h3>
-			<Albums albums={albums}/>
-			<SongTable currentSong={currentSong} playSong={playSong} songs={songs}/>
+			<ul className='nav nav-tabs'>
+				<li><Link to={`/Artists/${artist.id}/albums`} activeStyle={{ color: 'Aqua' }}>ALBUMS</Link></li>
+				<li><Link to={`/Artists/${artist.id}/songs`} activeStyle={{ color: 'Aqua' }}>SONGS</Link></li>
+			</ul>
+			{childrenWithProps}
 		</div>
 	)
 }

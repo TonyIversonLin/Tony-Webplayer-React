@@ -7,11 +7,13 @@ import { toggleOne } from '../action/albumActions'
 
 const mapStateToProps = (state, ownProps) => {
 	let { albums, artist } = state.currentArtist;
-	let {currentSong} = state
+	let {currentSong} = state;
+	console.log('passing down children', ownProps)
 	return {
 		albums,
 		artist,
-		currentSong
+		currentSong,
+		children: ownProps.children
 	}
 }
 
