@@ -1,10 +1,10 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
 
-const NewPlayListForm = ({name, onChange, invalid, errorMessage}) => {
+const NewPlayListForm = ({name, onChange, invalid, errorMessage, submit}) => {
 	return (
 		<div className="well">
-		  <form className="form-horizontal">
+		  <form className="form-horizontal" onSubmit={submit}>
 		    <fieldset>
 		      <legend>New Playlist</legend>
 		      <div className="form-group">
@@ -15,7 +15,7 @@ const NewPlayListForm = ({name, onChange, invalid, errorMessage}) => {
 		      </div>
 		      <div className="form-group">
 		        <div className="col-xs-10 col-xs-offset-2">
-		          <button type="submit" className="btn btn-success" disabled={invalid}>Create Playlist</button>
+		          <button type="submit" className="btn btn-success" disabled={invalid} >Create Playlist</button>
 		        </div>
 		      </div>
 		      {errorMessage && <div className="alert alert-warning">Please enter a name</div>}
@@ -29,7 +29,8 @@ NewPlayListForm.propTypes = {
 	name: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
 	invalid: PropTypes.bool.isRequired,
-	errorMessage: PropTypes.bool.isRequired
+	errorMessage: PropTypes.bool.isRequired,
+	submit: PropTypes.func.isRequired
 }
 
 export default NewPlayListForm;
