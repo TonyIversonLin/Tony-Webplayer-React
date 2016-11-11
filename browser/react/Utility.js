@@ -32,7 +32,7 @@ export function forcePosition(length,pos) {
 
 export function nameCheck(str, artists) {
 	let result = artists.filter(artist => {
-		return str.split('').every((letter,i) => str[i]=== artist.name[i])
+		return str.toLowerCase().split('').every((letter,i) => str[i]=== artist.name[i].toLowerCase())
 	});
 	return result;
 }

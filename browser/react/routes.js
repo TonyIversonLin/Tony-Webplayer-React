@@ -8,6 +8,7 @@ import Main from './container/Main';
 import Albums from './component/Albums';
 import SongTable from './component/SongTable';
 import NotFound from './component/NotFound';
+import NewPlayListContainer from './container/NewPlayListContainer';
 
 import {fetchAlbumsFromServer, fetchSingleAlbum} from './action/albumActions';
 import {fetchArtists, fetchSingleArtist} from './action/artistActions'
@@ -24,6 +25,7 @@ export default (store) => {
 				<Route path='albums' component={Albums}/>
 				<Route path='songs' component={SongTable}/>
 			</Route>
+			<Route path='addPlayList' component={NewPlayListContainer}/>
 			<Route path='*' component={NotFound}/>
 		</Route>
 	)

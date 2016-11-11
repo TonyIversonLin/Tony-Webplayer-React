@@ -5,14 +5,6 @@ import React, {Component} from 'react';
 import Artists from '../component/Artists';
 import {nameCheck} from '../Utility';
 
-// const mapStateToProps = (state, ownProps) => {
-// 	return {
-// 		artists: state.artists
-// 	}
-// }
-
-// export default connect(mapStateToProps)(Artists);
-
 class ArtistsContainer extends Component {
 
 	constructor(props) {
@@ -36,14 +28,16 @@ class ArtistsContainer extends Component {
 	}
 
 	render() {
-		console.log('artists', this.state.artists);
 		return (
 			<div>
 				<h3>Artists</h3>
-				<input type='text' 
+				<input 
+					className="form-control"
+					type='text' 
 					placeholder='Search Artist' 
 					value={this.state.name} 
 					onChange={this.filter}/>
+					<hr/>
 				<Artists artists={this.state.artists}/>
 			</div>
 		)
