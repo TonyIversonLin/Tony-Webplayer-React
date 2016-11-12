@@ -53,5 +53,19 @@ export function fetchSinglePlaylist (playlistID) {
 	}
 }
 
+export function addSongToPlaylist (song) {
+	return {
+		type: types.UPDATE_SINGLE_PLAYLIST,
+		song: song
+	}
+}
 
+export function postNewSongToPlaylist (playlistID, songID) {
+	return dispatch => {
+		fetch('/api/playlists/'+playlistID+'/songs', postObject({id: songID}))
+			.then(res => res.json())
+			.then(newSongFromServer => dispatch(addSongToPlaylist(newSongFromServer)))
+			.catch(error => console.log(error));
+	}
+}
 

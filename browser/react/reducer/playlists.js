@@ -16,6 +16,8 @@ export function currentPlaylist(state = [], action) {
 	switch(action.type) {
 		case types.RECEIVE_SINGLE_PLAYLIST:
 			return action.playlist;
+		case types.UPDATE_SINGLE_PLAYLIST:
+			return Object.assign({}, state, {songs: [...state.songs, action.song]});
 		default:
 			return state;
 	}
