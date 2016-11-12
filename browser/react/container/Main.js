@@ -3,9 +3,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import Footer from '../component/Footer';
-import Sidebar from '../component/Sidebar';
-import Album from '../component/Album';
-import AlbumsContainer from './AlbumsContainer';
+import SidebarContainer from './SidebarContainer';
 import {AUDIO, playMusic, changeSong, forcePosition} from '../Utility';
 import { toggle, toggleOne, switchSong } from '../action/albumActions'
 
@@ -44,7 +42,7 @@ class Main extends Component {
 		return (
 			<div id="main" className="container-fluid">
 			<div className="col-xs-2">
-				<Sidebar />
+				<SidebarContainer />
 			</div>
 			<div className="col-xs-10">
 				{this.props.children}

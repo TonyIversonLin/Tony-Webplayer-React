@@ -11,19 +11,44 @@ export function receiveNewPlaylist(playlist) {
 
 export function createNewPlayList(playlist) {
 	return dispatch => {
-		console.log('getting in here...........')
-		// let header = new Headers();
-		// header.append('Content-Type', 'application/json');
-		// fetch('/api/playlists', { 
-		// 	method: 'POST', 
-		// 	headers: header,
-		// 	mode: 'cors',
-		// 	cache: 'default',
-		// 	body: JSON.stringify({name: playlist})
-		// })
 		fetch('/api/playlists', postObject({name: playlist}))
 			.then(res => res.json())
 			.then(newPlaylistFromServer => dispatch(receiveNewPlaylist(newPlaylistFromServer)))
 			.catch(err => console.log(err));
 	}
 }
+
+export function receiveAllPlaylist (playlists) {
+	return {
+		type: types.RECEIVE_ALL_PLAYLIST,
+		playlists: playlists
+	}
+}
+
+export function fetchAllPlaylists () {
+	return dispatch => {
+		fetch('/api/playlists')
+			.then(res => res.json())
+			.then(playlistsFromServer => dispatch(receiveAllPlaylist(playlistsFromServer)))
+			.catch(err => console.log(err))
+	}
+} 
+
+export function receiveSinglePlaylist (playlist) {
+	return {
+		type: types.RECEIVE_SINGLE_PLAYLIST,
+		playlist: playlist
+	}
+}
+
+export function fetchSinglePlaylist (playlistID) {
+	return dispatch => {
+		fetch('/api/playlists/'+playlistID)
+			.then(res => res.json())
+			.then(playlistFromServer => dispatch(receiveSinglePlaylist(playlistFromServer)))
+			.catch(error => console.log(error));
+	}
+}
+
+
+
