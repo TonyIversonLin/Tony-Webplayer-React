@@ -36,3 +36,14 @@ export function nameCheck(str, artists) {
 	});
 	return result;
 }
+
+export function postObject(objData) {
+	let header = new Headers({'Content-Type': 'application/json'});
+	return {
+		method: 'POST',
+		headers: header,
+		mode: 'cors',
+		cache: 'default',
+		body: JSON.stringify(objData)
+	}
+} 

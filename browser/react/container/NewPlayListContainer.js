@@ -2,6 +2,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import NewPlayListForm from '../Component/NewPlayListForm';
+import { createNewPlayList } from '../action/playlistActions';
 
 class NewPlayListContainer extends Component {
 
@@ -24,6 +25,7 @@ class NewPlayListContainer extends Component {
 
 	submit(event) {
 		event.preventDefault();
+		this.props.addNewPlaylist(this.state.name);
 		this.setState({name: '', invalid: true, errorMessage: false})
 	} 
 
@@ -42,7 +44,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-	return {}
+	return {
+		addNewPlaylist: (playlist) => dispatch(createNewPlayList(playlist))
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPlayListContainer)

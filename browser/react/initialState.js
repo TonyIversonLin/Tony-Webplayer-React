@@ -12,6 +12,7 @@ const initialState = {
   currentSong: {},
   currentSongList: [],
   isPlaying: false,
+  playlists: []
   //progress: 0
 };
 

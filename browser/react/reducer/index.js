@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { albums } from './albums';
 import {currentAlbum, currentSong, currentSongList, isPlaying} from './album'
 import {artists, currentArtist} from './artists'
+import {playlists} from './playlists'
 
 const rootReducer = combineReducers({
 	artists,
@@ -11,7 +12,8 @@ const rootReducer = combineReducers({
 	currentAlbum,
 	currentSong,
 	currentSongList,
-	isPlaying
+	isPlaying,
+	playlists
 });
 
 export default rootReducer;
