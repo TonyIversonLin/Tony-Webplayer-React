@@ -14,6 +14,7 @@ import PlaylistContainer from './container/PlaylistContainer';
 import {fetchAlbumsFromServer, fetchSingleAlbum} from './action/albumActions';
 import {fetchArtists, fetchSingleArtist} from './action/artistActions';
 import { fetchAllPlaylists, fetchSinglePlaylist } from './action/playlistActions';
+import { fetchAllSongs } from './action/songActions'
 
 export default (store) => {
 	return (
@@ -64,5 +65,6 @@ function preLoadSinglePlaylist(store) {
 	return nextState => {
 		let playlistID = nextState.params.id;
 		store.dispatch(fetchSinglePlaylist(playlistID));
+		store.dispatch(fetchAllSongs())
 	}
 }

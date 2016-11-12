@@ -4,6 +4,7 @@ import { albums } from './albums';
 import {currentAlbum, currentSong, currentSongList, isPlaying} from './album'
 import {artists, currentArtist} from './artists'
 import { playlists, currentPlaylist } from './playlists'
+import { songs } from './songs'
 
 const rootReducer = combineReducers({
 	artists,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
 	currentSongList,
 	isPlaying,
 	playlists,
-	currentPlaylist
+	currentPlaylist,
+	songs
 });
 
 export default rootReducer;
