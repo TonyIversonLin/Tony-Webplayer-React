@@ -11,9 +11,12 @@ export function receiveNewPlaylist(playlist) {
 
 export function createNewPlayList(playlist) {
 	return dispatch => {
-		fetch('/api/playlists', postObject({name: playlist}))
+		return fetch('/api/playlists', postObject({name: playlist}))
 			.then(res => res.json())
-			.then(newPlaylistFromServer => dispatch(receiveNewPlaylist(newPlaylistFromServer)))
+			.then(newPlaylistFromServer => {
+				dispatch(receiveNewPlaylist(newPlaylistFromServer));
+				return newPlaylistFromServer;
+			})
 			.catch(err => console.log(err));
 	}
 }
