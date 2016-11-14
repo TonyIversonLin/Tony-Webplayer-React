@@ -32,12 +32,15 @@ class NewPlayListContainer extends Component {
 	} 
 
 	render() {
-		return <NewPlayListForm 
+		return <div>
+						<hr/>
+						<NewPlayListForm 
 						onChange={this.update} 
 						name={this.state.name}
 						invalid={this.state.invalid}
 						errorMessage={this.state.errorMessage}
 						submit={this.submit}/>
+					 </div>
 	}
 }
 

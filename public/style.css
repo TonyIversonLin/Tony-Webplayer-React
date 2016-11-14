@@ -14,7 +14,7 @@ sidebar {
   top: 0;
   padding: 0 !important;
   background: #303030;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 0px);
   width: inherit;
   overflow-y: auto;
   border-right: 2px solid #555; }

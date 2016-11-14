@@ -12,6 +12,11 @@ const SongTable = ({ songs, currentSong, playSong}) => {
 	    <td>{song.name}</td>
 	    <td>{song.artists.map((artist)=>artist.name).join(' ')}</td>
 	    <td>{song.genre}</td>
+	    <td>
+	    	<button className="btn btn-default btn-xs">
+	    		<span className="glyphicon glyphicon-remove"></span>
+	    	</button>
+	    </td>
 		</tr>
 		});
 

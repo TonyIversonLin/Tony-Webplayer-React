@@ -33,6 +33,7 @@ class PlaylistContainer extends Component {
 	render() {
 		return (
 			<div>
+				<hr/>
 				<AddSongForm selectedSong={this.state.selectedSong}
 										 invalid={this.state.invalid}
 										 onChange={this.update}
