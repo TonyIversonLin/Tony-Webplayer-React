@@ -1,5 +1,6 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
+import { Link } from 'react-router';
 
 const SongTable = ({ songs, currentSong, playSong, deleteSong}) => {
 	const songRow = songs.map((song,index) => {
@@ -10,7 +11,10 @@ const SongTable = ({ songs, currentSong, playSong, deleteSong}) => {
 	      </button>
 	    </td>
 	    <td>{song.name}</td>
-	    <td>{song.artists.map((artist)=>artist.name).join(' ')}</td>
+	    <td>{song.artists.map(artist => {
+	    	return <Link key={artist.id} to={"/Artists/"+artist.id}>{artist.name}</Link>
+	    })}
+	    </td>
 	    <td>{song.genre}</td>
 	    {deleteSong && 
 		    <td>
