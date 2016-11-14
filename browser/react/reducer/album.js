@@ -13,7 +13,9 @@ export function currentSong(state = {}, action) {
 export function currentSongList(state = [], action) {
 	switch(action.type) {
 		case types.SET_CURRENT_SONG:
-			return action.currentSongList
+			return action.currentSongList;
+		case types.UPDATE_SINGLE_PLAYLIST:
+		 	return [...state, action.song];
 		default:
 			return state
 	}
