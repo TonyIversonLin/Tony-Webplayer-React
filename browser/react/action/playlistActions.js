@@ -63,8 +63,9 @@ export function addSongToPlaylist (song) {
 export function postNewSongToPlaylist (playlistID, songID) {
 	return dispatch => {
 		fetch('/api/playlists/'+playlistID+'/songs', postObject({id: songID}))
-			.then(res => res.json())
+			.then(res => res.status===201 ? res.json() : res.text())
 			.then(newSongFromServer => {
+				console.log('adding new song', newSongFromServer);
 				newSongFromServer.url = `/api/songs/${newSongFromServer.id}/audio`;
 				dispatch(addSongToPlaylist(newSongFromServer))
 			}).catch(error => console.log(error));

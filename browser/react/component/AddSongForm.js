@@ -1,5 +1,6 @@
 'use strict';
 import React, { Component, PropTypes } from 'react';
+import ErrorMessageContainer from '../container/ErrorMessageContainer';
 
 const AddSongForm = ({selectedSong, onChange, allSongs, invalid, submit}) => {
 	return (
@@ -24,6 +25,8 @@ const AddSongForm = ({selectedSong, onChange, allSongs, invalid, submit}) => {
 		          <button type="submit" className="btn btn-success" disabled={invalid}>Add Song</button>
 		        </div>
 		      </div>
+
+		      <ErrorMessageContainer/>
 
 				</fieldset>
 			</form>

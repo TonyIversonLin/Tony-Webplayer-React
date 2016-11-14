@@ -14,7 +14,8 @@ const initialState = {
   isPlaying: false,
   playlists: [],
   currentPlaylist: {name: '', songs: []},
-  songs: []
+  songs: [],
+  error: ''
   //progress: 0
 };
 

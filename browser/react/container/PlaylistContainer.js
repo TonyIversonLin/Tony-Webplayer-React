@@ -31,7 +31,6 @@ class PlaylistContainer extends Component {
 	}
 
 	render() {
-		console.log('I am here');
 		return (
 			<div>
 				<AddSongForm selectedSong={this.state.selectedSong}
