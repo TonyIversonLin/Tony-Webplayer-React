@@ -16,6 +16,8 @@ export function currentSongList(state = [], action) {
 			return action.currentSongList;
 		case types.UPDATE_SINGLE_PLAYLIST:
 		 	return [...state, action.song];
+		case types.DELETE_SONG_PLAYLIST:
+			return [...state.filter(song => song.id !== action.id)];
 		default:
 			return state
 	}

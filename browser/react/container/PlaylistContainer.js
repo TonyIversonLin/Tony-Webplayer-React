@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import Playlist from '../component/Playlist';
 import AddSongForm from '../component/AddSongForm';
 import { toggleOne } from '../action/albumActions'
-import { postNewSongToPlaylist } from '../action/playlistActions'
+import { postNewSongToPlaylist, deleteSongFromPlaylist } from '../action/playlistActions'
 
 class PlaylistContainer extends Component {
 
@@ -26,7 +26,7 @@ class PlaylistContainer extends Component {
 
 	submit(event) {
 		event.preventDefault();
-		this.props.addSong(this.props.currentPlaylist.id, this.state.selectedSong);
+		this.props.addSong(this.state.selectedSong);
 		this.setState({selectedSong: '', invalid: true})
 	}
 
@@ -41,7 +41,8 @@ class PlaylistContainer extends Component {
 										 submit={this.submit} />
 				<Playlist currentPlaylist = {this.props.currentPlaylist}
 									currentSong = {this.props.currentSong}
-									playSong = {this.props.playSong} />
+									playSong = {this.props.playSong} 
+									deleteSong= {this.props.deleteSong} />
 			</div>
 		)
 	}
@@ -53,9 +54,11 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+	let playlistID = ownProps.params.id;
 	return {
 		playSong: (song, songList) => dispatch(toggleOne(song, songList)),
-		addSong: (playlistID, songID) => dispatch(postNewSongToPlaylist(playlistID,songID))
+		addSong: (songID) => dispatch(postNewSongToPlaylist(playlistID,songID)),
+		deleteSong: (songID) => dispatch(deleteSongFromPlaylist(playlistID,songID))
 	}
 }
 

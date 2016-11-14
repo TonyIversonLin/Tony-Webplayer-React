@@ -76,3 +76,21 @@ export function postNewSongToPlaylist (playlistID, songID) {
 	}
 }
 
+export function deleteSong(songID) {
+	return {
+		type: types.DELETE_SONG_PLAYLIST,
+		id: songID
+	}
+}
+
+export function deleteSongFromPlaylist(playlistID, songID) {
+	return dispatch => {
+		fetch('/api/playlists/'+playlistID+'/songs/'+songID, {method: 'DELETE'})
+			.then(res => res.status===204 ? undefined : res.text())
+			.then(messageFromServer => {
+				if(!messageFromServer) dispatch(deleteSong(songID));
+				else dispatch(errorFromServer(messageFromServer));
+			}).catch(error => console.log(error));
+	}
+}
+

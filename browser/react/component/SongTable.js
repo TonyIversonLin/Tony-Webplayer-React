@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component, PropTypes} from 'react';
 
-const SongTable = ({ songs, currentSong, playSong}) => {
+const SongTable = ({ songs, currentSong, playSong, deleteSong}) => {
 	const songRow = songs.map((song,index) => {
 		return <tr key={index} className={song===currentSong ? "active" : ""}>
 	    <td>
@@ -12,11 +12,12 @@ const SongTable = ({ songs, currentSong, playSong}) => {
 	    <td>{song.name}</td>
 	    <td>{song.artists.map((artist)=>artist.name).join(' ')}</td>
 	    <td>{song.genre}</td>
-	    <td>
-	    	<button className="btn btn-default btn-xs">
-	    		<span className="glyphicon glyphicon-remove"></span>
-	    	</button>
-	    </td>
+	    {deleteSong && 
+		    <td>
+		    	<button className="btn btn-default btn-xs" onClick={() => deleteSong(song.id)}>
+		    		<span className="glyphicon glyphicon-remove"></span>
+		    	</button>
+		    </td>}
 		</tr>
 		});
 

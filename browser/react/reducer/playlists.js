@@ -18,6 +18,9 @@ export function currentPlaylist(state = [], action) {
 			return action.playlist;
 		case types.UPDATE_SINGLE_PLAYLIST:
 			return Object.assign({}, state, {songs: [...state.songs, action.song]});
+		case types.DELETE_SONG_PLAYLIST:
+			return Object.assign({}, state, {songs: [
+				...state.songs.filter(song => song.id !== action.id)]});
 		default:
 			return state;
 	}
