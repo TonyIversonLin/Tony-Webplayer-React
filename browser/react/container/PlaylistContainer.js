@@ -20,13 +20,15 @@ class PlaylistContainer extends Component {
 	}
 
 	update(event) {
-		let selectedSong = parseInt(event.target.value);
+		let selectedSong = event.target.value;
 		this.setState({selectedSong, invalid: false});
 	}
 
 	submit(event) {
 		event.preventDefault();
-		this.props.addSong(this.state.selectedSong);
+		let song = this.props.songs.filter(song => song.name===this.state.selectedSong)
+		let songId = song[0].id
+		this.props.addSong(songId);
 		this.setState({selectedSong: '', invalid: true})
 	}
 
