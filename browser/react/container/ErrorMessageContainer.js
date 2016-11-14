@@ -5,7 +5,6 @@ import React, {Component} from 'react';
 import ErrorMessage from '../component/ErrorMessage';
 
 const mapStateToProps = (state, ownProps) => {
-	console.log('state', state.error)
 	return {
 		error: state.error
 	}

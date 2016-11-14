@@ -1,6 +1,7 @@
 'use strict';
 import * as types from './actionType';
-import { postObject } from '../Utility'
+import { postObject } from '../Utility';
+import { errorFromServer } from './errorActions';
 
 export function receiveNewPlaylist(playlist) {
 	return {
@@ -65,9 +66,12 @@ export function postNewSongToPlaylist (playlistID, songID) {
 		fetch('/api/playlists/'+playlistID+'/songs', postObject({id: songID}))
 			.then(res => res.status===201 ? res.json() : res.text())
 			.then(newSongFromServer => {
-				console.log('adding new song', newSongFromServer);
-				newSongFromServer.url = `/api/songs/${newSongFromServer.id}/audio`;
-				dispatch(addSongToPlaylist(newSongFromServer))
+				if(typeof newSongFromServer ==='object') {
+					newSongFromServer.url = `/api/songs/${newSongFromServer.id}/audio`;
+					dispatch(addSongToPlaylist(newSongFromServer));
+				} else {
+					dispatch(errorFromServer(newSongFromServer));
+				}
 			}).catch(error => console.log(error));
 	}
 }
