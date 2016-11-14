@@ -7,3 +7,9 @@ export function errorFromServer(message) {
 		error: message
 	}
 }
+
+export function resetError() {
+	return {
+		type: types.RESET_ERROR
+	}
+}

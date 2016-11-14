@@ -14,7 +14,8 @@ import PlaylistContainer from './container/PlaylistContainer';
 import {fetchAlbumsFromServer, fetchSingleAlbum} from './action/albumActions';
 import {fetchArtists, fetchSingleArtist} from './action/artistActions';
 import { fetchAllPlaylists, fetchSinglePlaylist } from './action/playlistActions';
-import { fetchAllSongs } from './action/songActions'
+import { fetchAllSongs } from './action/songActions';
+import { resetError } from './action/errorActions';
 
 export default (store) => {
 	return (
@@ -29,7 +30,7 @@ export default (store) => {
 				<Route path='songs' component={SongTable}/>
 			</Route>
 			<Route path='addPlayList' component={NewPlayListContainer}/>
-			<Route path='Playlists/(:id)' component={PlaylistContainer} onEnter={preLoadSinglePlaylist(store)}/>
+			<Route path='Playlists/(:id)' component={PlaylistContainer} onEnter={preLoadSinglePlaylist(store)} onLeave={clearError(store)}/>
 			<Route path='*' component={NotFound}/>
 		</Route>
 	)
@@ -67,4 +68,8 @@ function preLoadSinglePlaylist(store) {
 		store.dispatch(fetchSinglePlaylist(playlistID));
 		store.dispatch(fetchAllSongs())
 	}
+}
+
+function clearError(store) {
+	return () => store.dispatch(resetError());
 }
