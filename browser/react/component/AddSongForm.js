@@ -12,19 +12,16 @@ const AddSongForm = ({selectedSong, onChange, allSongs, invalid, submit}) => {
 
 					<div className="form-group">
 						<label className="col-xs-2 control-label">Song</label>
-		        <div className="col-xs-10">
+		        <div className="col-xs-7">
 		          <select className="form-control" value={selectedSong} onChange={onChange}>
-		          <option value="">{}</option>
-		          {allSongs.map(song => <option key={song.id} value={song.id}>{song.name}</option>)}
+		          	<option value="">{}</option>
+		          	{allSongs.map(song => <option key={song.id} value={song.id}>{song.name}</option>)}
 		          </select>
+		        </div>
+		        <div className="col-xs-2">
+		          <button type="submit" className="btn btn-success" disabled={invalid}>Add Song</button>
 		        </div>						
 					</div>
-
-		      <div className="form-group">
-		        <div className="col-xs-10 col-xs-offset-2">
-		          <button type="submit" className="btn btn-success" disabled={invalid}>Add Song</button>
-		        </div>
-		      </div>
 
 		      <ErrorMessageContainer/>
 
