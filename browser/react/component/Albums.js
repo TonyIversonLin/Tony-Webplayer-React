@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const Albums = ({albums}) => {
 	const albumList = albums.map((album, index) => {
-		return <div className="col-xs-4" key={album.id}>
+		return <div className="col-xs-12 col-sm-6 col-md-4" key={album.id}>
       <Link className="thumbnail" to={'/albums/'+album.id}>
         <img src={album.imageUrl} />
         <div className="caption">
