@@ -6,7 +6,7 @@ const Album = ({album, playSong, currentSong}) => {
 	const {songs, imageUrl, name} = album;
 	return (
 		<div>
-		  <div className="col-xs-7">
+		  <div className="col-xs-4">
 		    <h3>{name}</h3>
 		    <img src={imageUrl} className="img-thumbnail" />
 		  </div>

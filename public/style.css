@@ -56,5 +56,9 @@ footer {
   footer .progress-bar {
     transition: none !important; }
 
-.album img {
-  height: 300px; }
+/*.album img {
+  height: 300px; }*/
+
+  img {
+    width: 100%;
+  }
