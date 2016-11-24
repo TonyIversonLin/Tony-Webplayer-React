@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 
-const Sidebar = ({ playlists }) => {
+const Sidebar = ({ playlists, isPlaying }) => {
   let showPlaylists;
   if(playlists) {
       showPlaylists = playlists.map(playlist => {
@@ -19,7 +19,7 @@ const Sidebar = ({ playlists }) => {
 	return (
     <div className="col-xs-2">
       <sidebar>
-        <img src="/world.png" className="logo" />
+        <img src="/world.png" className={isPlaying ? "logo play" : "logo pause"}/>
         <section>
           <h4 className="menu-item active">
             <Link to="/Albums" activeStyle={{ color: 'Aqua' }}>ALBUMS</Link><p></p>

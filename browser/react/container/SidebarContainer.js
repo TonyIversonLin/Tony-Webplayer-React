@@ -6,7 +6,8 @@ import Sidebar from '../component/Sidebar';
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		playlists: state.playlists
+		playlists: state.playlists,
+		isPlaying: state.isPlaying
 	}
 }
 
