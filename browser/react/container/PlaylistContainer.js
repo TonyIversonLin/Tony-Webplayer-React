@@ -13,10 +13,15 @@ class PlaylistContainer extends Component {
 		super(props);
 		this.state = {
 			selectedSong: '',
-			invalid: true
+			invalid: true,
+			currentPlaylist: Object.assign({},this.props.currentPlaylist)
 		}
 		this.update = this.update.bind(this);
 		this.submit = this.submit.bind(this);
+	}
+
+	componentWillReceiveProps(nextProps){
+		this.setState({currentPlaylist: Object.assign({},this.props.currentPlaylist)});
 	}
 
 	update(event) {
@@ -33,6 +38,7 @@ class PlaylistContainer extends Component {
 	}
 
 	render() {
+		console.log('state play list', this.state.currentPlaylist);
 		return (
 			<div>
 				<hr/>
@@ -41,10 +47,11 @@ class PlaylistContainer extends Component {
 										 onChange={this.update}
 										 allSongs={this.props.songs}
 										 submit={this.submit} />
-				<Playlist currentPlaylist = {this.props.currentPlaylist}
+				<Playlist currentPlaylist = {this.state.currentPlaylist}
 									currentSong = {this.props.currentSong}
 									playSong = {this.props.playSong} 
-									deleteSong= {this.props.deleteSong} />
+									deleteSong= {this.props.deleteSong} 
+									draggable={true} />
 			</div>
 		)
 	}
@@ -52,6 +59,10 @@ class PlaylistContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	let {currentSong, currentPlaylist, songs} = state;
+	let newCurrentPlaylist = currentPlaylist.songs.forEach((song,index)=>{
+		song.order = index;
+	})
+	console.log('I want the detail of currentPlaylist',currentPlaylist);
 	return {currentSong, currentPlaylist, songs}
 }
 
