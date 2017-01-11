@@ -18,10 +18,33 @@ class PlaylistContainer extends Component {
 		}
 		this.update = this.update.bind(this);
 		this.submit = this.submit.bind(this);
+		this.onDragEnter = this.onDragEnter.bind(this);
+		this.onDragOver = this.onDragOver.bind(this);
 	}
 
 	onDragStart(event){
 		console.log('start dragging',event.target.dataset.order);
+		let dragTragetOrder = event.target.dataset.order;
+		event.dataTransfer.setData('Text',dragTragetOrder.toString());
+	}
+
+	cancel(event){
+		event.preventDefault();
+		event.stopPropagation();
+	}
+
+	onDragEnter(event){
+		this.cancel(event);
+	}
+
+	onDragOver(event){
+		this.cancel(event);
+	}
+
+	onDrop(event){
+		console.log('drop happening',event.target.parentElement.dataset.order,event.dataTransfer.getData('Text'));
+		let dropTargetOrder = event.target.parentElement.dataset.order;
+		let dragTargetOrder = event.dataTransfer.getData('text');
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -57,6 +80,9 @@ class PlaylistContainer extends Component {
 									deleteSong= {this.props.deleteSong} 
 									draggable={true} 
 									onDragStart={this.onDragStart}
+									onDrop={this.onDrop}
+									onDragEnter={this.onDragEnter}
+									onDragOver={this.onDragOver}
 									/>
 			</div>
 		)

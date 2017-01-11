@@ -7,28 +7,28 @@ import {nameCheck} from '../Utility'
 
 class ArtistsContainer extends Component {
 
-	                                                            constructor (props) {
-		                                                            super(props)
-		                                                            this.state = {
-			                                                            artists: [...this.props.artists],
-			                                                            name: ''
+  constructor (props) {
+    super(props)
+    this.state = {
+      artists: [...this.props.artists],
+      name: ''
 		}
-		                                                            this.filter = this.filter.bind(this)
+    this.filter = this.filter.bind(this)
 	}
 
-	                                                            componentWillReceiveProps (nextProps) {
-		                                                            this.setState({artists: nextProps.artists})
+  componentWillReceiveProps (nextProps) {
+    this.setState({artists: nextProps.artists})
 	}
 
-	                                                            filter (event) {
-		                                                            let targetName = event.target.value
-		                                                            let filterArtist = nameCheck(targetName, this.props.artists)
-		                                                            this.setState({artists: filterArtist})
-		                                                            this.setState({name: targetName})
+  filter (event) {
+    let targetName = event.target.value
+    let filterArtist = nameCheck(targetName, this.props.artists)
+    this.setState({artists: filterArtist})
+    this.setState({name: targetName})
 	}
 
-	                                                            render () {
-		                                                            return (
+  render () {
+    return (
 			<div>
 				<h3>Artists</h3>
 				<input
