@@ -2,7 +2,7 @@
 import React, {Component, PropTypes} from 'react';
 import SongTable from '../component/SongTable';
 
-const Playlist = ({currentPlaylist, currentSong, playSong, deleteSong, draggable}) => {
+const Playlist = ({currentPlaylist, currentSong, playSong, deleteSong, draggable, onDragStart, onDragEnter, onDragOver, onDrop, onDragLeave}) => {
 	
 	if(draggable){
 		currentPlaylist.songs.sort((songA,songB) => songA.order - songB.order)
@@ -17,6 +17,11 @@ const Playlist = ({currentPlaylist, currentSong, playSong, deleteSong, draggable
 				playSong={playSong}
 				deleteSong={deleteSong} 
 				draggable={draggable}
+				onDragStart={onDragStart}
+				onDragEnter={onDragEnter}
+				onDragOver={onDragOver}
+				onDrop={onDrop}
+				onDragLeave={onDragLeave}
 				/>
 			{!currentPlaylist.songs.length && <small>No songs.</small>}
 			<hr/>

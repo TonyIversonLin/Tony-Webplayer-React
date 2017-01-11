@@ -2,9 +2,11 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 
-const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable}) => {
+const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable, onDragStart, onDragEnter, onDragOver, onDrop, onDragLeave}) => {
 	const songRow = songs.map((song,index) => {
-		return <tr key={index} draggable data-order={song.order | undefined} className={song===currentSong ? "active" : ""}>
+		return(
+		<tr key={index} draggable={draggable} onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}
+		onDrop={onDrop} onDragLeave={onDragLeave} data-order={song.order} className={song===currentSong ? "active" : ""}>
 	    <td>
 	      <button className={song===currentSong ? "hide" :"btn btn-default btn-xs"} onClick={() => playSong(song, songs)}>
 	        <span className="glyphicon glyphicon-play"></span>
@@ -22,7 +24,7 @@ const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable}) => {
 		    		<span className="glyphicon glyphicon-remove"></span>
 		    	</button>
 		    </td>}
-		</tr>
+		</tr>)
 		});
 
 	return (

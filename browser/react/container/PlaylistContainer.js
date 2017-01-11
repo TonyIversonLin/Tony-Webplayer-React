@@ -20,6 +20,10 @@ class PlaylistContainer extends Component {
 		this.submit = this.submit.bind(this);
 	}
 
+	onDragStart(event){
+		console.log('start dragging',event.target.dataset.order);
+	}
+
 	componentWillReceiveProps(nextProps){
 		this.setState({currentPlaylist: Object.assign({},this.props.currentPlaylist)});
 	}
@@ -51,7 +55,9 @@ class PlaylistContainer extends Component {
 									currentSong = {this.props.currentSong}
 									playSong = {this.props.playSong} 
 									deleteSong= {this.props.deleteSong} 
-									draggable={true} />
+									draggable={true} 
+									onDragStart={this.onDragStart}
+									/>
 			</div>
 		)
 	}
