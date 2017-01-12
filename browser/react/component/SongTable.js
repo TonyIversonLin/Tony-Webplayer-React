@@ -3,7 +3,6 @@ import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 
 const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable, onDragStart, onDragEnter, onDragOver, onDrop, onDragLeave}) => {
-	console.log('on drop',onDrop);
 	const songRow = songs.map((song,index) => {
 		return(
 		<tr key={index} draggable={draggable} onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}

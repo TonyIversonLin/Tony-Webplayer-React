@@ -6,6 +6,7 @@ import Playlist from '../component/Playlist';
 import AddSongForm from '../component/AddSongForm';
 import { toggleOne } from '../action/albumActions'
 import { postNewSongToPlaylist, deleteSongFromPlaylist } from '../action/playlistActions'
+import { rearrageOrder } from '../Utility'
 
 class PlaylistContainer extends Component {
 
@@ -16,10 +17,14 @@ class PlaylistContainer extends Component {
 			invalid: true,
 			currentPlaylist: Object.assign({},this.props.currentPlaylist)
 		}
+		this.lastLeavePosition = 0;
+
 		this.update = this.update.bind(this);
 		this.submit = this.submit.bind(this);
 		this.onDragEnter = this.onDragEnter.bind(this);
 		this.onDragOver = this.onDragOver.bind(this);
+		this.onDragLeave = this.onDragLeave.bind(this);
+		this.onDrop = this.onDrop.bind(this);
 	}
 
 	onDragStart(event){
@@ -44,11 +49,19 @@ class PlaylistContainer extends Component {
 	onDrop(event){
 		console.log('drop happening',event.target.parentElement.dataset.order,event.dataTransfer.getData('Text'));
 		let dropTargetOrder = event.target.parentElement.dataset.order;
-		let dragTargetOrder = event.dataTransfer.getData('text');
+		let dragTargetOrder = parseInt(event.dataTransfer.getData('text'));
+		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
+		tempCurrentPlaylist = rearrageOrder(tempCurrentPlaylist, dragTargetOrder, dropTargetOrder);
+		this.setState({currentPlaylist: tempCurrentPlaylist});
+	}
+
+	onDragLeave(event){
+		console.log('leaving happening',event.target.parentElement.dataset.order);
+		this.lastLeavePosition = event.target.parentElement.dataset.order;
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setState({currentPlaylist: Object.assign({},this.props.currentPlaylist)});
+		this.setState({currentPlaylist: Object.assign({},nextProps.currentPlaylist)});
 	}
 
 	update(event) {
@@ -83,6 +96,7 @@ class PlaylistContainer extends Component {
 									onDrop={this.onDrop}
 									onDragEnter={this.onDragEnter}
 									onDragOver={this.onDragOver}
+									onDragLeave={this.onDragLeave}
 									/>
 			</div>
 		)
@@ -91,7 +105,7 @@ class PlaylistContainer extends Component {
 
 const mapStateToProps = (state, ownProps) => {
 	let {currentSong, currentPlaylist, songs} = state;
-	let newCurrentPlaylist = currentPlaylist.songs.forEach((song,index)=>{
+	currentPlaylist.songs.forEach((song,index)=>{
 		song.order = index;
 	})
 	console.log('I want the detail of currentPlaylist',currentPlaylist);
