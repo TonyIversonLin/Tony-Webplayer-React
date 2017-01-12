@@ -52,15 +52,15 @@ export function rearrageOrder(currentPlaylist,dragOrder,dropOrder){
 	let temp;
 	currentPlaylist.songs.forEach((song)=>{
 		if(song.order>dragOrder && song.order<=dropOrder) song.order = song.order-1;
-		if(song.order<dragOrder && song.order>=dropOrder) song.order = song.order+1;
-		if(song.order===dragOrder){
-			console.log('re-setting the drag row order')
+		else if(song.order<dragOrder && song.order>=dropOrder) song.order = song.order+1;
+		else if(song.order===dragOrder){
+			console.log('re-setting the drag row order');
 			if(song.order<dropOrder) {
 				console.log('drag smaller than drop');
-				song.order = dropOrder+1;
+				song.order = dropOrder;
 			}else if(song.order>dropOrder) {
 				console.log('drag bigger than drop');
-				song.order = dropOrder-1;
+				song.order = dropOrder;
 			}else {
 				console.log('equal');
 				song.order=song.order;

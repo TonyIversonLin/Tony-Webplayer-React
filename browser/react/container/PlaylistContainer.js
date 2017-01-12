@@ -48,7 +48,7 @@ class PlaylistContainer extends Component {
 
 	onDrop(event){
 		console.log('drop happening',event.target.parentElement.dataset.order,event.dataTransfer.getData('Text'));
-		let dropTargetOrder = event.target.parentElement.dataset.order;
+		let dropTargetOrder = parseInt(event.target.parentElement.dataset.order);
 		let dragTargetOrder = parseInt(event.dataTransfer.getData('text'));
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
 		tempCurrentPlaylist = rearrageOrder(tempCurrentPlaylist, dragTargetOrder, dropTargetOrder);
