@@ -56,15 +56,11 @@ sortable.rearrageOrder = function(currentPlaylist,dragOrder,dropOrder){
 		if(song.order>dragOrder && song.order<=dropOrder) song.order = song.order-1;
 		else if(song.order<dragOrder && song.order>=dropOrder) song.order = song.order+1;
 		else if(song.order===dragOrder){
-			console.log('re-setting the drag row order');
 			if(song.order<dropOrder) {
-				console.log('drag smaller than drop');
 				song.order = dropOrder;
 			}else if(song.order>dropOrder) {
-				console.log('drag bigger than drop');
 				song.order = dropOrder;
 			}else {
-				console.log('equal');
 				song.order=song.order;
 			}
 		}

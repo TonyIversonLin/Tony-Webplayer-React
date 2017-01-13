@@ -7,7 +7,9 @@ const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable, onDrag
 		if(song==="dropline"){
 			return <tr key={'dropline'} style={{ outline: "aqua dashed thin"}}>
 
-								<th colSpan='5' style={{textAlign: 'center'}}><strong style={{color: 'aqua'}}>{'\u2193'} Move Song Here</strong></th>
+								<th colSpan='5' style={{textAlign: 'center', background: 'repeating-linear-gradient(45deg,#2e3338,#2e3338 10px,#62686d 10px,#62686d 20px)'}}>
+									<strong style={{color: 'aqua'}}>{'\u2193'} Move Song Here</strong>
+								</th>
 		
 							</tr>
 		}
