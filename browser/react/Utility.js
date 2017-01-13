@@ -47,7 +47,7 @@ export function postObject(objData) {
 		body: JSON.stringify(objData)
 	}
 } 
-//-----sortable list utility function set---------
+//-----------------------sortable list utility method set-------------------------//
 export let sortable = {};
 
 sortable.rearrageOrder = function(currentPlaylist,dragOrder,dropOrder){
@@ -75,7 +75,7 @@ sortable.targetOrder = function(eventObj){
 	return parseInt(eventObj.target.parentElement.dataset.order);
 }
 sortable.deleteDropline = function(tempCurrentPlaylist,position){
-	tempCurrentPlaylist.songs.splice(position,1);
+	if(position!==undefined) tempCurrentPlaylist.songs.splice(position,1);
 }
 sortable.addDropline = function(tempCurrentPlaylist,position,status){
 	if(status==='under') tempCurrentPlaylist.songs.splice(position+1,0,'dropline');
