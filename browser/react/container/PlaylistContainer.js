@@ -35,9 +35,7 @@ class PlaylistContainer extends Component {
 	}
 
 	onDragStart(event){
-		console.log('start dragging',event.target.dataset.order);
-		let dragTargetOrder = event.target.dataset.order;
-		this.dragTargetOrder = parseInt(dragTargetOrder);
+		this.dragTargetOrder = parseInt(event.target.dataset.order);
 	}
 
 	cancel(event){
@@ -48,13 +46,11 @@ class PlaylistContainer extends Component {
 	onDragEnter(event){
 		this.cancel(event);
 
-		let enterTargetOrder = sortable.targetOrder(event);
-		this.enterTargetOrder = enterTargetOrder;
-		let dragTargetOrder = this.dragTargetOrder;
+		this.enterTargetOrder = sortable.targetOrder(event);
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
 
 		sortable.deleteDropline(tempCurrentPlaylist,this.droplineIndex);
-		this.droplineIndex = sortable.createDropRegion(tempCurrentPlaylist, dragTargetOrder, enterTargetOrder)
+		this.droplineIndex = sortable.createDropRegion(tempCurrentPlaylist, this.dragTargetOrder, this.enterTargetOrder)
 
 		this.setState({currentPlaylist: tempCurrentPlaylist});
 	}
@@ -67,13 +63,12 @@ class PlaylistContainer extends Component {
 		this.swapstatus = false;
 
 		let dropTargetOrder = sortable.targetOrder(event); 
-		let dragTargetOrder = this.dragTargetOrder; 
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
 
 		sortable.deleteDropline(tempCurrentPlaylist,this.droplineIndex);
 		this.droplineIndex = undefined;
 
-		tempCurrentPlaylist = sortable.rearrageOrder(tempCurrentPlaylist, dragTargetOrder, dropTargetOrder);
+		tempCurrentPlaylist = sortable.rearrageOrder(tempCurrentPlaylist, this.dragTargetOrder, dropTargetOrder);
 		this.setState({currentPlaylist: tempCurrentPlaylist});
 	}
 
@@ -82,17 +77,14 @@ class PlaylistContainer extends Component {
 	}
 
 	onDragEnd(event){
-		console.log('dragging is done',this.dragTargetOrder,'lastEnterPosition',this.enterTargetOrder);
 		if(!this.swapstatus) return;
-		let dragTargetOrder = this.dragTargetOrder 
+		
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
-		if(this.droplineIndex!==undefined) {
-			console.log('deleting new line');
-			tempCurrentPlaylist.songs.splice(this.droplineIndex,1);
-			this.droplineIndex = undefined;
-		}
-		tempCurrentPlaylist = sortable.rearrageOrder(tempCurrentPlaylist, dragTargetOrder, this.enterTargetOrder);
-		this.enterTargetOrder = undefined;
+		
+		sortable.deleteDropline(tempCurrentPlaylist,this.droplineIndex);
+		this.droplineIndex = undefined;
+
+		tempCurrentPlaylist = sortable.rearrageOrder(tempCurrentPlaylist, this.dragTargetOrder, this.enterTargetOrder);
 		this.setState({currentPlaylist: tempCurrentPlaylist});
 	}
 
@@ -114,7 +106,6 @@ class PlaylistContainer extends Component {
 	}
 
 	render() {
-		console.log('state play list', this.state.currentPlaylist);
 		return (
 			<div>
 				<hr/>
@@ -146,7 +137,6 @@ const mapStateToProps = (state, ownProps) => {
 	currentPlaylist.songs.forEach((song,index)=>{
 		song.order = index;
 	})
-	console.log('I want the detail of currentPlaylist',currentPlaylist);
 	return {currentSong, currentPlaylist, songs}
 }
 
