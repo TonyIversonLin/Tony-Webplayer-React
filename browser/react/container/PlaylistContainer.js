@@ -19,6 +19,7 @@ class PlaylistContainer extends Component {
 			dropline: {show: false, index: 0, up: false}
 		}
 		this.dragIndex = undefined;
+		this.dragEnterIndex = undefined;
 		this.lastLeavePosition = undefined;
 		this.swapstatus = false;
 		this.droplineIndex = undefined;
@@ -48,6 +49,7 @@ class PlaylistContainer extends Component {
 	onDragEnter(event){
 		this.cancel(event);
 		let enterTargetOrder = parseInt(event.target.parentElement.dataset.order);
+		this.dragEnterIndex = enterTargetOrder;
 		let dragTargetOrder = this.dragIndex;
 		console.log('drag entering',enterTargetOrder);
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
@@ -99,7 +101,7 @@ class PlaylistContainer extends Component {
 	}
 
 	onDragEnd(event){
-		console.log('dragging is done',event.target.dataset.order,'lastLeavePosition',this.lastLeavePosition);
+		console.log('dragging is done',this.dragIndex,'lastEnterPosition',this.dragEnterIndex);
 		if(!this.swapstatus) return;
 		let dragTargetOrder = this.dragIndex //parseInt(event.target.dataset.order);
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
@@ -108,8 +110,8 @@ class PlaylistContainer extends Component {
 			tempCurrentPlaylist.songs.splice(this.droplineIndex,1);
 			this.droplineIndex = undefined;
 		}
-		tempCurrentPlaylist = rearrageOrder(tempCurrentPlaylist, dragTargetOrder, this.lastLeavePosition);
-		this.lastLeavePosition = undefined;
+		tempCurrentPlaylist = rearrageOrder(tempCurrentPlaylist, dragTargetOrder, this.dragEnterIndex);
+		this.dragEnterIndex = undefined;
 		this.setState({currentPlaylist: tempCurrentPlaylist});
 	}
 
