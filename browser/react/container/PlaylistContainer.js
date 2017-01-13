@@ -62,11 +62,13 @@ class PlaylistContainer extends Component {
 
 		if(dragTargetOrder<enterTargetOrder){
 			console.log('creating new line');
-			tempCurrentPlaylist.songs.splice(enterTargetOrder+1,0,"dropline")
+			//tempCurrentPlaylist.songs.splice(enterTargetOrder+1,0,"dropline");
+			sortable.addDropline(tempCurrentPlaylist,enterTargetOrder,'under');
 			this.droplineIndex = enterTargetOrder+1;
 		}else if(dragTargetOrder>enterTargetOrder){
 			console.log('creating new line');
-			tempCurrentPlaylist.songs.splice(enterTargetOrder,0,"dropline");
+			//tempCurrentPlaylist.songs.splice(enterTargetOrder,0,"dropline");
+			sortable.addDropline(tempCurrentPlaylist,enterTargetOrder,'top');
 			this.droplineIndex = enterTargetOrder;
 		}else{
 			this.droplineIndex = undefined;

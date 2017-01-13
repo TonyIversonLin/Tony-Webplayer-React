@@ -77,3 +77,7 @@ sortable.targetOrder = function(eventObj){
 sortable.deleteDropline = function(tempCurrentPlaylist,position){
 	tempCurrentPlaylist.songs.splice(position,1);
 }
+sortable.addDropline = function(tempCurrentPlaylist,position,status){
+	if(status==='under') tempCurrentPlaylist.songs.splice(position+1,0,'dropline');
+	else if(status==='top') tempCurrentPlaylist.songs.splice(position,0,'dropline');
+}
