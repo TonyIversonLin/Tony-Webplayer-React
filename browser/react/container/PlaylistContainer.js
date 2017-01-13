@@ -48,31 +48,29 @@ class PlaylistContainer extends Component {
 
 	onDragEnter(event){
 		this.cancel(event);
+
 		let enterTargetOrder = sortable.targetOrder(event);
 		this.enterTargetOrder = enterTargetOrder;
 		let dragTargetOrder = this.dragTargetOrder;
-		//console.log('drag entering',enterTargetOrder);
+
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
 
 		if(this.droplineIndex!==undefined){
-			console.log('deleting dropline');
-			//tempCurrentPlaylist.songs.splice(this.droplineIndex,1);
 			sortable.deleteDropline(tempCurrentPlaylist,this.droplineIndex);
 		}
 
-		if(dragTargetOrder<enterTargetOrder){
-			console.log('creating new line');
-			//tempCurrentPlaylist.songs.splice(enterTargetOrder+1,0,"dropline");
-			sortable.addDropline(tempCurrentPlaylist,enterTargetOrder,'under');
-			this.droplineIndex = enterTargetOrder+1;
-		}else if(dragTargetOrder>enterTargetOrder){
-			console.log('creating new line');
-			//tempCurrentPlaylist.songs.splice(enterTargetOrder,0,"dropline");
-			sortable.addDropline(tempCurrentPlaylist,enterTargetOrder,'top');
-			this.droplineIndex = enterTargetOrder;
-		}else{
-			this.droplineIndex = undefined;
-		}
+		// if(dragTargetOrder<enterTargetOrder){
+		// 	sortable.addDropline(tempCurrentPlaylist,enterTargetOrder,'under');
+		// 	this.droplineIndex = enterTargetOrder+1;
+		// }else if(dragTargetOrder>enterTargetOrder){
+		// 	sortable.addDropline(tempCurrentPlaylist,enterTargetOrder,'top');
+		// 	this.droplineIndex = enterTargetOrder;
+		// }else{
+		// 	this.droplineIndex = undefined;
+		// }
+
+		this.droplineIndex = sortable.createDropRegion(tempCurrentPlaylist, dragTargetOrder, enterTargetOrder)
+
 		this.setState({currentPlaylist: tempCurrentPlaylist});
 	}
 

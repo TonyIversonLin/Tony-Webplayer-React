@@ -81,3 +81,14 @@ sortable.addDropline = function(tempCurrentPlaylist,position,status){
 	if(status==='under') tempCurrentPlaylist.songs.splice(position+1,0,'dropline');
 	else if(status==='top') tempCurrentPlaylist.songs.splice(position,0,'dropline');
 }
+sortable.createDropRegion = function(tempCurrentPlaylist,dragTargetOrder,enterTargetOrder){
+	if(dragTargetOrder<enterTargetOrder){
+		sortable.addDropline(tempCurrentPlaylist,enterTargetOrder,'under');
+		return enterTargetOrder+1;
+	}else if(dragTargetOrder>enterTargetOrder){
+		sortable.addDropline(tempCurrentPlaylist,enterTargetOrder,'top');
+		return enterTargetOrder;
+	}else{
+		return undefined;
+	}
+}
