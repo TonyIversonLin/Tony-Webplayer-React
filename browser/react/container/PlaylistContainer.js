@@ -18,6 +18,7 @@ class PlaylistContainer extends Component {
 			currentPlaylist: Object.assign({},this.props.currentPlaylist)
 		}
 		this.lastLeavePosition = 0;
+		this.swapstatus = false;
 
 		this.update = this.update.bind(this);
 		this.submit = this.submit.bind(this);
@@ -25,6 +26,7 @@ class PlaylistContainer extends Component {
 		this.onDragOver = this.onDragOver.bind(this);
 		this.onDragLeave = this.onDragLeave.bind(this);
 		this.onDrop = this.onDrop.bind(this);
+		this.onDragEnd = this.onDragEnd.bind(this);
 	}
 
 	onDragStart(event){
@@ -47,6 +49,7 @@ class PlaylistContainer extends Component {
 	}
 
 	onDrop(event){
+		this.swapstatus = false;
 		console.log('drop happening',event.target.parentElement.dataset.order,event.dataTransfer.getData('Text'));
 		let dropTargetOrder = parseInt(event.target.parentElement.dataset.order);
 		let dragTargetOrder = parseInt(event.dataTransfer.getData('text'));
@@ -57,7 +60,17 @@ class PlaylistContainer extends Component {
 
 	onDragLeave(event){
 		console.log('leaving happening',event.target.parentElement.dataset.order);
-		this.lastLeavePosition = event.target.parentElement.dataset.order;
+		this.lastLeavePosition = parseInt(event.target.parentElement.dataset.order);
+		this.swapstatus = true;
+	}
+
+	onDragEnd(event){
+		console.log('dragging is done');
+		if(!this.swapstatus) return;
+		let dragTargetOrder = parseInt(event.target.dataset.order);
+		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
+		tempCurrentPlaylist = rearrageOrder(tempCurrentPlaylist, dragTargetOrder, this.lastLeavePosition);
+		this.setState({currentPlaylist: tempCurrentPlaylist});
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -97,6 +110,7 @@ class PlaylistContainer extends Component {
 									onDragEnter={this.onDragEnter}
 									onDragOver={this.onDragOver}
 									onDragLeave={this.onDragLeave}
+									onDragEnd={this.onDragEnd}
 									/>
 			</div>
 		)

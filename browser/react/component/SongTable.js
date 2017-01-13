@@ -2,11 +2,11 @@
 import React, {Component, PropTypes} from 'react';
 import { Link } from 'react-router';
 
-const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable, onDragStart, onDragEnter, onDragOver, onDrop, onDragLeave}) => {
+const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable, onDragStart, onDragEnter, onDragOver, onDrop, onDragLeave, onDragEnd}) => {
 	const songRow = songs.map((song,index) => {
 		return(
 		<tr key={index} draggable={draggable} onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}
-		onDrop={onDrop} onDragLeave={onDragLeave} data-order={song.order} className={song===currentSong ? "active" : ""}>
+		onDrop={onDrop} onDragLeave={onDragLeave} onDragEnd={onDragEnd} data-order={song.order} className={song===currentSong ? "active" : ""}>
 	    <td>
 	      <button className={song===currentSong ? "hide" :"btn btn-default btn-xs"} onClick={() => playSong(song, songs)}>
 	        <span className="glyphicon glyphicon-play"></span>
