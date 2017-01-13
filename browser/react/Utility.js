@@ -48,7 +48,9 @@ export function postObject(objData) {
 	}
 } 
 //-----sortable list utility function set---------
-export function rearrageOrder(currentPlaylist,dragOrder,dropOrder){
+export let sortable = {};
+
+sortable.rearrageOrder = function(currentPlaylist,dragOrder,dropOrder){
 	let temp;
 	currentPlaylist.songs.forEach((song)=>{
 		if(song.order>dragOrder && song.order<=dropOrder) song.order = song.order-1;
@@ -68,4 +70,10 @@ export function rearrageOrder(currentPlaylist,dragOrder,dropOrder){
 		}
 	})
 	return currentPlaylist;
+}
+sortable.targetOrder = function(eventObj){
+	return parseInt(eventObj.target.parentElement.dataset.order);
+}
+sortable.deleteDropline = function(tempCurrentPlaylist,position){
+	tempCurrentPlaylist.songs.splice(position,1);
 }

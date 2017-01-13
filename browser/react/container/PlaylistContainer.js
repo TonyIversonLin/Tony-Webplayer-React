@@ -6,7 +6,7 @@ import Playlist from '../component/Playlist';
 import AddSongForm from '../component/AddSongForm';
 import { toggleOne } from '../action/albumActions'
 import { postNewSongToPlaylist, deleteSongFromPlaylist } from '../action/playlistActions'
-import { rearrageOrder } from '../Utility'
+import { sortable } from '../Utility'
 
 class PlaylistContainer extends Component {
 
@@ -18,8 +18,8 @@ class PlaylistContainer extends Component {
 			currentPlaylist: Object.assign({},this.props.currentPlaylist),
 			dropline: {show: false, index: 0, up: false}
 		}
-		this.dragIndex = undefined;
-		this.dragEnterIndex = undefined;
+		this.dragTargetOrder = undefined;
+		this.enterTargetOrder = undefined;
 		this.lastLeavePosition = undefined;
 		this.swapstatus = false;
 		this.droplineIndex = undefined;
@@ -36,9 +36,9 @@ class PlaylistContainer extends Component {
 
 	onDragStart(event){
 		console.log('start dragging',event.target.dataset.order);
-		let dragTragetOrder = event.target.dataset.order;
-		this.dragIndex = parseInt(dragTragetOrder);
-		event.dataTransfer.setData('Text',dragTragetOrder.toString());
+		let dragTargetOrder = event.target.dataset.order;
+		this.dragTargetOrder = parseInt(dragTargetOrder);
+		//event.dataTransfer.setData('Text',dragTragetOrder.toString());
 	}
 
 	cancel(event){
@@ -48,15 +48,16 @@ class PlaylistContainer extends Component {
 
 	onDragEnter(event){
 		this.cancel(event);
-		let enterTargetOrder = parseInt(event.target.parentElement.dataset.order);
-		this.dragEnterIndex = enterTargetOrder;
-		let dragTargetOrder = this.dragIndex;
-		console.log('drag entering',enterTargetOrder);
+		let enterTargetOrder = sortable.targetOrder(event);
+		this.enterTargetOrder = enterTargetOrder;
+		let dragTargetOrder = this.dragTargetOrder;
+		//console.log('drag entering',enterTargetOrder);
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
 
 		if(this.droplineIndex!==undefined){
 			console.log('deleting dropline');
-			tempCurrentPlaylist.songs.splice(this.droplineIndex,1);
+			//tempCurrentPlaylist.songs.splice(this.droplineIndex,1);
+			sortable.deleteDropline(tempCurrentPlaylist,this.droplineIndex);
 		}
 
 		if(dragTargetOrder<enterTargetOrder){
@@ -79,9 +80,10 @@ class PlaylistContainer extends Component {
 
 	onDrop(event){
 		this.swapstatus = false;
-		console.log('drop happening',event.target.parentElement.dataset.order,event.dataTransfer.getData('Text'));
-		let dropTargetOrder = parseInt(event.target.parentElement.dataset.order);
-		let dragTargetOrder = parseInt(event.dataTransfer.getData('text'));
+		let dropTargetOrder = sortable.targetOrder(event); //parseInt(event.target.parentElement.dataset.order);
+		let dragTargetOrder = this.dragTargetOrder; //parseInt(event.dataTransfer.getData('text'));
+		console.log('drop happening',dragTargetOrder,dropTargetOrder);
+
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
 
 		if(this.droplineIndex!==undefined) {
@@ -89,29 +91,27 @@ class PlaylistContainer extends Component {
 			this.droplineIndex = undefined;
 		}
 
-		tempCurrentPlaylist = rearrageOrder(tempCurrentPlaylist, dragTargetOrder, dropTargetOrder);
-		this.droplineIndex = undefined;
+		tempCurrentPlaylist = sortable.rearrageOrder(tempCurrentPlaylist, dragTargetOrder, dropTargetOrder);
 		this.setState({currentPlaylist: tempCurrentPlaylist});
 	}
 
 	onDragLeave(event){
 		console.log('leaving happening',event.target.parentElement.dataset.order);
-		this.lastLeavePosition = parseInt(event.target.parentElement.dataset.order);
 		this.swapstatus = true;
 	}
 
 	onDragEnd(event){
-		console.log('dragging is done',this.dragIndex,'lastEnterPosition',this.dragEnterIndex);
+		console.log('dragging is done',this.dragTargetOrder,'lastEnterPosition',this.enterTargetOrder);
 		if(!this.swapstatus) return;
-		let dragTargetOrder = this.dragIndex //parseInt(event.target.dataset.order);
+		let dragTargetOrder = this.dragTargetOrder //parseInt(event.target.dataset.order);
 		let tempCurrentPlaylist = Object.assign({}, this.state.currentPlaylist);
 		if(this.droplineIndex!==undefined) {
 			console.log('deleting new line');
 			tempCurrentPlaylist.songs.splice(this.droplineIndex,1);
 			this.droplineIndex = undefined;
 		}
-		tempCurrentPlaylist = rearrageOrder(tempCurrentPlaylist, dragTargetOrder, this.dragEnterIndex);
-		this.dragEnterIndex = undefined;
+		tempCurrentPlaylist = sortable.rearrageOrder(tempCurrentPlaylist, dragTargetOrder, this.enterTargetOrder);
+		this.enterTargetOrder = undefined;
 		this.setState({currentPlaylist: tempCurrentPlaylist});
 	}
 
