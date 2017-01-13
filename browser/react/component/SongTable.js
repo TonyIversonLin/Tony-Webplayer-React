@@ -5,16 +5,16 @@ import { Link } from 'react-router';
 const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable, onDragStart, onDragEnter, onDragOver, onDrop, onDragLeave, onDragEnd, dropline}) => {
 	const songRow = songs.map((song,index) => {
 		if(song==="dropline"){
-			return <tr key={'dropline'}>
+			return <tr key={'dropline'} style={{outline: "aqua dotted thin"}}>
 								<td></td>
-								<td></td>
-								<td><strong>move song here</strong></td>
-								<td></td>
-								<td></td>
+								<td ></td>
+								<td ><strong style={{color: 'aqua'}}>Move Song Here</strong></td>
+								<td ></td>
+								<td ></td>
 							</tr>
 		}
 		return(
-		<tr key={index} draggable={draggable} onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}
+		<tr style={{borderColor: 'aqua'}} key={index} draggable={draggable} onDragStart={onDragStart} onDragEnter={onDragEnter} onDragOver={onDragOver}
 		onDrop={onDrop} onDragLeave={onDragLeave} onDragEnd={onDragEnd} data-order={song.order} className={song===currentSong ? "active" : ""}>
 	    <td>
 	      <button className={song===currentSong ? "hide" :"btn btn-default btn-xs"} onClick={() => playSong(song, songs)}>
@@ -37,7 +37,7 @@ const SongTable = ({ songs, currentSong, playSong, deleteSong, draggable, onDrag
 		});
 
 	return (
-		  <table className='table'>
+		  <table className='table' style={{borderCollapse: 'collapse'}}>
 		    <thead>
 		      <tr>
 		        <th></th>
