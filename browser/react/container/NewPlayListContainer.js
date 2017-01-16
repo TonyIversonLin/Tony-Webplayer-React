@@ -2,7 +2,7 @@
 import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import { browserHistory } from 'react-router'
-import NewPlayListForm from '../Component/NewPlayListForm';
+import NewPlayListForm from '../component/NewPlayListForm';
 import { createNewPlayList } from '../action/playlistActions';
 
 class NewPlayListContainer extends Component {
