@@ -11,7 +11,7 @@
     "db-init": "./db-init.sh",
     "postinstall": "npm run db-init"
   },
-  "engine": {
+  "engines": {
      "node": "6.2.2"
   },
   "dependencies": {
